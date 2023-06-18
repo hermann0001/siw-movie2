@@ -33,6 +33,11 @@ public class AuthenticationController {
 		model.addAttribute("credentials", new Credentials());
 		return "formRegisterUser";
 	}
+
+/*	@GetMapping(value="/index")
+	public String showIndex(Model model){
+		return "index";
+	}*/
 	
 	@GetMapping(value = "/login") 
 	public String showLoginForm (Model model) {
@@ -43,16 +48,16 @@ public class AuthenticationController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
-	        return "index.html";
+	        return "index";
 		}
 		else {		
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-				return "admin/indexAdmin.html";
+				return "admin/indexAdmin";
 			}
 		}
-        return "index.html";
+        return "index";
 	}
 		
     @GetMapping(value = "/success")
@@ -61,9 +66,9 @@ public class AuthenticationController {
     	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
     	if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-            return "admin/indexAdmin.html";
+            return "admin/indexAdmin";
         }
-        return "index.html";
+        return "index";
     }
 
 	@PostMapping(value = { "/register" })
