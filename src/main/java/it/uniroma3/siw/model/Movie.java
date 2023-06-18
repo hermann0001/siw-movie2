@@ -1,14 +1,10 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +32,9 @@ public class Movie {
         
         @ManyToMany
         private Set<Artist> actors;
+
+        @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+        private List<Review> reviews;
     
         public Long getId() {
             return id;

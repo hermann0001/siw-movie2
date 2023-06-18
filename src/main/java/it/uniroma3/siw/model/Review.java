@@ -1,10 +1,7 @@
 package it.uniroma3.siw.model;
 
 import it.uniroma3.siw.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -23,8 +20,13 @@ public class Review {
     @Min(1)
     @Max(5)
     private Integer mark;
+    @NotBlank
+    private String text;
 
+    @ManyToOne
     private User writer;
+    @ManyToOne
+    private Movie movie;
 
     public void setId(Long id) {
         this.id = id;
