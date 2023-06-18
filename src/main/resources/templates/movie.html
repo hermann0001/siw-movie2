@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title th:text="${movie.title}">Film</title>
+	<link rel="stylesheet" href="/css/styles.css" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${user}">
+			<a href="/login">Login</a>
+		</div>
+	</header>    
+    <div class="center">
+		<a href="/"> <img src="/images/logo-siw.png" width="50%" /></a>
+		<div th:if="${movie}">
+			<h1 th:text="${movie.title}">titolo film</h1>
+			<div>
+				Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span>
+			</div>
+			<span> <img th:src="${movie.urlImage}" width="5%" /></span>
+		</div>
+		<div th:unless="${movie}">Non esiste</div>
+	</div>
+  </body>
+</html>

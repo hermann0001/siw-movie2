@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwMovie - Homepage
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${user}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div class="center">
+		<div id="logo">
+			<a href="/"> <img src="/images/logo-siw.png" width="50%" /></a>
+		</div>
+		<h2>
+			<a href="indexMovie">Operazioni Film</a>
+		</h2>
+		<h2>
+			<a href="indexArtist">Operazioni Artisti</a>
+		</h2>
+		<h2>
+			<a href="indexNews">Gestisci News</a>
+		</h2>
+	</div>
+</body>
+
+</html>
