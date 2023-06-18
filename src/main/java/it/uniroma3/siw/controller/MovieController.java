@@ -82,7 +82,7 @@ public class MovieController {
 		if (!bindingResult.hasErrors()) {
 			this.movieRepository.save(movie); 
 			model.addAttribute("movie", movie);
-			return "movie";
+			return "/movie/movie";
 		} else {
 			return "admin/formNewMovie";
 		}
@@ -91,24 +91,24 @@ public class MovieController {
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
-		return "movie";
+		return "/movie/movie";
 	}
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {		
 		model.addAttribute("movies", this.movieRepository.findAll());
-		return "movies";
+		return "/movie/movies";
 	}
 	
 	@GetMapping("/formSearchMovies")
 	public String formSearchMovies() {
-		return "formSearchMovies.html";
+		return "/movie/formSearchMovies";
 	}
 
 	@PostMapping("/searchMovies")
 	public String searchMovies(Model model, @RequestParam int year) {
 		model.addAttribute("movies", this.movieRepository.findByYear(year));
-		return "foundMovies";
+		return "/movie/foundMovies";
 	}
 	
 	@GetMapping("/admin/updateActors/{id}")
@@ -162,5 +162,10 @@ public class MovieController {
 			actorsToAdd.add(a);
 		}
 		return actorsToAdd;
+	}
+
+	@GetMapping(value="/error404")
+	public String error404(){
+		return "index";
 	}
 }

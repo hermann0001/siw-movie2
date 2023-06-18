@@ -47,6 +47,7 @@ public class AuthenticationController {
 	@GetMapping(value = "/") 
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(authentication.getClass());
 		if (authentication instanceof AnonymousAuthenticationToken) {
 	        return "index";
 		}
@@ -86,6 +87,6 @@ public class AuthenticationController {
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
-        return "registerUser";
+        return "formRegisterUser";
     }
 }

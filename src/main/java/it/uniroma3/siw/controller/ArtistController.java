@@ -20,12 +20,12 @@ public class ArtistController {
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
 		model.addAttribute("artist", new Artist());
-		return "admin/formNewArtist.html";
+		return "admin/formNewArtist";
 	}
 	
 	@GetMapping(value="/admin/indexArtist")
 	public String indexArtist() {
-		return "admin/indexArtist.html";
+		return "admin/indexArtist";
 	}
 	
 	@PostMapping("/admin/artist")
@@ -33,22 +33,22 @@ public class ArtistController {
 		if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
 			this.artistRepository.save(artist); 
 			model.addAttribute("artist", artist);
-			return "artist.html";
+			return "artist/artist";
 		} else {
 			model.addAttribute("messaggioErrore", "Questo artista esiste già");
-			return "admin/formNewArtist.html"; 
+			return "admin/formNewArtist";
 		}
 	}
 
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("artist", this.artistRepository.findById(id).get());
-		return "artist";
+		return "artist/artist";
 	}
 
 	@GetMapping("/artist")
 	public String getArtists(Model model) {
 		model.addAttribute("artists", this.artistRepository.findAll());
-		return "artists";
+		return "artist/artists";
 	}
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Gestione Film</title>
+  <head>
+    <title th:text="${movie.title}">Film</title>
 	<link rel="stylesheet" href="/css/styles.css" />
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width">
@@ -19,20 +19,17 @@
 		<div th:unless="${user}">
 			<a href="/login">Login</a>
 		</div>
-	</header>
-	
-	<div class="center">
-		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
-		<h1>Gestione Film</h1>
-		<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
-		<ul>
-			<li th:each="movie : ${movies}"><a
-				th:href="@{'/movies' + '/' + ${movie.id}}"
-				th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
-			</li>
-		</ul>
+	</header>    
+    <div class="center">
+		<a href="/static"> <img src="/images/logo-siw.png" width="50%" /></a>
+		<div th:if="${movie}">
+			<h1 th:text="${movie.title}">titolo film</h1>
+			<div>
+				Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span>
+			</div>
+			<span> <img th:src="${movie.urlImage}" width="5%" /></span>
+		</div>
+		<div th:unless="${movie}">Non esiste</div>
 	</div>
-	
-</body>
-
+  </body>
 </html>
