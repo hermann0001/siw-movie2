@@ -163,9 +163,4 @@ public class MovieController {
 		}
 		return actorsToAdd;
 	}
-
-	@GetMapping(value="/error404")
-	public String error404(){
-		return "index";
-	}
 }
