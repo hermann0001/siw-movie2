@@ -235,18 +235,18 @@ body .page-content{
   padding: 80px 60px;
 }
 
-.welcome h5{
+.welcome h5, .page-content h5{
   font-size: 40px;
   color: #fff;
 }
 
-.welcome h5 em{
+.welcome h5 em, .page-content h5 em, .page-content h6 em{
   font-style: normal;
   color: #20c997;
   text-transform: uppercase;
 }
 
-.welcome h6{
+.welcome h6, .page-content h6, .page-content span{
   font-size: 20px;
   color: #fff;
   font-weight: 200;
