@@ -11,18 +11,14 @@
 	<!-- Bootstrap core CSS -->
 	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 	<!-- Additional CSS Files -->
 	<link rel="stylesheet" href="/css/style.css">
-<!--	<link rel="stylesheet" href="/css/owl.css">
-	<link rel="stylesheet" href="/css/animate.css">-->
 
 	<!-- embedding FontAwesome Kit script -->
 	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
-
 </head>
 <body>
-	<!-- ***** Header Area End ***** -->
+	<!-- ***** Header Area ***** -->
 	<header class="header-area">
 		<div class="container">
 			<div class="row">
@@ -35,7 +31,7 @@
 						<!-- search bar -->
 						<div class="search-input">
 							<form id="search" action="#">
-								<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword" onkeydown="handle">
+								<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
 								<i class="fa-solid fa-magnifying-glass"></i>
 							</form>
 						</div>
@@ -45,20 +41,20 @@
 								<a href="index.html" class="active">Home</a>
 							</li>
 							<li>
-								<a href="movie.html"> Film </a>
+								<a href="movie/movie.html"> Film </a>
 							</li>
 							<li>
-								<a href="artist.html"> Artisti </a>
+								<a href="artist/artist.html"> Artisti </a>
 							</li>
 							<li>
 								<a href="review.html"> Recensioni </a>
 							</li>
 							<!-- login or go to profile logic -->
 							<li th:if="${userDetails}">
-								<a href="/profile">Profilo <img src="/images/profile-header.jpg" alt=""></a>
+								<a href="/profile">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
 							</li>
 							<li th:unless="${user}">
-								<a href="/login">Login <img src="/images/profile-header.jpg" alt=""></a>
+								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
 							</li>
 
 						</ul>
@@ -67,7 +63,8 @@
 			</div>
 		</div>
 	</header>
-
+	<!-- Header Area End -->
+	<!-- Main area -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -90,22 +87,13 @@
 					<!-- second container -->
 					<div class="various-film">
 						<div class="heading-section">
-							<h4> What's <em>new?</em></h4>
+							<h4> What's <em>new</em>?</h4>
 						</div>
 						<div class="row">
 							<div class="col-lg-4">
 								<div class="item">
 									<!-- film carousel-->
-									<div id="filmCarousel" class="carousel slide">
-										<div class="carousel-indicators">
-											<button type="button" data-bs-target="#filmCarousel"
-													data-bs-slide-to="0" class="active" aria-current="true"
-													aria-label="Slide 1"></button>
-											<button type="button" data-bs-target="#filmCarousel"
-													data-bs-slide-to="1" aria-label="Slide 2"></button>
-											<button type="button" data-bs-target="#filmCarousel"
-													data-bs-slide-to="2" aria-label="Slide 3"></button>
-										</div>
+									<div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
 										<div class="carousel-inner">
 											<div class="carousel-item active">
 												<img src="/images/carousel_film/locandina1.jpg" class="d-md-block w-100" alt="...">
@@ -117,21 +105,9 @@
 												<img src="/images/carousel_film/locandina3.jpg" class="d-block w-100" alt="...">
 											</div>
 										</div>
-										<button class="carousel-control-prev" type="button"
-												data-bs-target="#filmCarousel"
-												data-bs-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Previous</span>
-										</button>
-										<button class="carousel-control-next" type="button"
-												data-bs-target="#filmCarousel"
-												data-bs-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Next</span>
-										</button>
 									</div>
 									<!-- end of film carousel-->
-									<div class="main-button">
+									<div class="main-button d-flex justify-content-center">
 										<a href="/movie"> Browse Movies</a>
 									</div>
 								</div>
@@ -139,42 +115,21 @@
 							<div class="col-lg-4">
 								<div class="item">
 									<!-- artist carousel-->
-									<div id="artistsCarousel" class="carousel slide">
-										<div class="carousel-indicators">
-											<button type="button" data-bs-target="#artistsCarousel"
-													data-bs-slide-to="0" class="active" aria-current="true"
-													aria-label="Slide 1"></button>
-											<button type="button" data-bs-target="#artistsCarousel"
-													data-bs-slide-to="1" aria-label="Slide 2"></button>
-											<button type="button" data-bs-target="#artistsCarousel"
-													data-bs-slide-to="2" aria-label="Slide 3"></button>
-										</div>
+									<div id="artistsCarousel" class="carousel slide" data-bs-ride="carousel">
 										<div class="carousel-inner">
 											<div class="carousel-item active">
-												<img src="/images/carousel_film/locandina1.jpg" class="d-md-block w-100" alt="...">
-											</div>
-											<div class="carousel-item">
 												<img src="/images/carousel_film/locandina2.jpg" class="d-md-block w-100" alt="...">
 											</div>
 											<div class="carousel-item">
-												<img src="/images/carousel_film/locandina3.jpg" class="d-block w-100" alt="...">
+												<img src="/images/carousel_film/locandina3.jpg" class="d-md-block w-100" alt="...">
+											</div>
+											<div class="carousel-item">
+												<img src="/images/carousel_film/locandina1.jpg" class="d-block w-100" alt="...">
 											</div>
 										</div>
-										<button class="carousel-control-prev" type="button"
-												data-bs-target="#artistsCarousel"
-												data-bs-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Previous</span>
-										</button>
-										<button class="carousel-control-next" type="button"
-												data-bs-target="#artistsCarousel"
-												data-bs-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Next</span>
-										</button>
 									</div>
 									<!-- end of artist carousel-->
-									<div class="main-button">
+									<div class="main-button d-flex justify-content-center">
 										<a href="/artist"> Browse Artists</a>
 									</div>
 								</div>
@@ -182,42 +137,21 @@
 							<div class="col-lg-4">
 								<div class="item">
 									<!-- reviews carousel-->
-									<div id="newsCarousel" class="carousel slide">
-										<div class="carousel-indicators">
-											<button type="button" data-bs-target="#newsCarousel"
-													data-bs-slide-to="0" class="active" aria-current="true"
-													aria-label="Slide 1"></button>
-											<button type="button" data-bs-target="#newsCarousel"
-													data-bs-slide-to="1" aria-label="Slide 2"></button>
-											<button type="button" data-bs-target="#newsCarousel"
-													data-bs-slide-to="2" aria-label="Slide 3"></button>
-										</div>
+									<div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
 										<div class="carousel-inner">
 											<div class="carousel-item active">
+												<img src="/images/carousel_film/locandina3.jpg" class="d-md-block w-100" alt="...">
+											</div>
+											<div class="carousel-item">
 												<img src="/images/carousel_film/locandina1.jpg" class="d-md-block w-100" alt="...">
 											</div>
 											<div class="carousel-item">
-												<img src="/images/carousel_film/locandina2.jpg" class="d-md-block w-100" alt="...">
-											</div>
-											<div class="carousel-item">
-												<img src="/images/carousel_film/locandina3.jpg" class="d-block w-100" alt="...">
+												<img src="/images/carousel_film/locandina2.jpg" class="d-block w-100" alt="...">
 											</div>
 										</div>
-										<button class="carousel-control-prev" type="button"
-												data-bs-target="#newsCarousel"
-												data-bs-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Previous</span>
-										</button>
-										<button class="carousel-control-next" type="button"
-												data-bs-target="#newsCarousel"
-												data-bs-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Next</span>
-										</button>
 									</div>
 									<!-- end of reviews carousel-->
-									<div class="main-button">
+									<div class="main-button  d-flex justify-content-center">
 										<a href="/review"> Browse Reviews</a>
 									</div>
 								</div>
@@ -228,7 +162,20 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- Main area end -->
+	<!-- Footer area start -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>
+						Copyright © 2023
+						<a href="www.github.com/hermann0001">Hermann Tamilia</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 
 
 	<!-- Scripts -->

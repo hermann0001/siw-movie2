@@ -31,27 +31,6 @@ font & reset css
 reset
 ---------------------------------------------
 */
-/*div[class*="col"]{
-    padding: 1rem;
-    background-color: #33b5e5;
-    border: 2px solid #fff;
-    color: #fff;
-}*/
-
-*{
-  box-sizing: border-box;
-}
-
-a {
-  color: #CCC;
-  text-decoration: none !important;
-}
-
-html, body{
-  background: #1f2122;
-  font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
 
 ::selection{
   background: #20c997;
@@ -82,14 +61,13 @@ header area style
 }
 
 .header-area .main-nav .logo{
-  border-right: 1px solid #27292a;
   flex-basis: 25%;
   margin-right: 5%;
   transition: all 0.3s ease 0s;
 }
 
 .header-area .main-nav .logo img{
-  width: 191px;
+  width: 240px;
 }
 
 .header-area .main-nav #search{
@@ -170,6 +148,18 @@ header area style
   margin-left: 5px;
 }
 
+.header-area .main-nav .nav li:hover a,
+.header-area .main-nav .nav li a.active {
+  color: #20c997 !important;
+}
+
+.header-area .main-nav .nav li:last-child:hover a,
+.header-area .main-nav .nav li:last-child a.active {
+  color: #fff !important;
+  background-color: #20c997 !important;
+}
+
+
 /*
 ----------------------------
 end of header area
@@ -181,6 +171,59 @@ body .page-content{
   background-color: #27292a;
   padding: 60px;
   border-radius: 23px;
+}
+
+.login{
+  margin-top: 210px;
+  background-color: #27292a;
+  padding: 80px 60px;
+  border-radius: 23px;
+  min-height: 420px;
+}
+
+.login h1{
+  font-size: 40px;
+  color: #20c997;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.login label{
+  font-style: normal;
+  font-size: 25px;
+  color: #fff;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.login input{
+  background-color: #27292a;
+  border-radius: 16px;
+  border: 1px solid #fff;
+  font-size: 20px;
+}
+
+.login #form-col, .register #form-col{
+  border-left: 3px solid #1f2122;
+}
+
+.login #register{}
+
+.login input:focus{
+  color: #fff;
+  outline: none !important;
+  border-color: #20c997;
+  box-shadow: 0 0 10px #20c997;
+  background-color: #27292a;
+}
+
+.login .main-button button{
+  padding: 6px 15px;
+  border: none;
+}
+
+.login a:hover{
+  color: #20c997;
 }
 
 .welcome{
@@ -210,7 +253,7 @@ body .page-content{
   margin-bottom: 25px;
 }
 
-.main-button a{
+.main-button a, button{
   font-size: 14px;
   color: #fff;
   background-color: #20c997;
@@ -225,7 +268,7 @@ body .page-content{
   overflow: hidden;
 }
 
-.main-button a:hover {
+.main-button a:hover, button:hover {
   background-color: #fff;
   color: #20c997;
 }
@@ -264,6 +307,28 @@ body .page-content{
   margin-top: 15px;
 }
 
+footer p{
+  text-align: center;
+  padding: 30px 0px;
+  color: #fff;
+  font-weight: 300;
+}
+
+footer p a{
+  color: #fff;
+  transition: all .3s;
+}
+
+footer p a:hover {
+  color: #20c997;
+}
+
+p{
+  font-size: 15px;
+  line-height: 30px;
+  color: #fff;
+  margin-bottom: 0px;
+}
 
 img{
   width: 100%;
@@ -298,6 +363,21 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0px;
   color: #fff;
   font-weight: 700;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+a {
+  color: #CCC;
+  text-decoration: none !important;
+}
+
+html, body{
+  background: #1f2122;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, figure, header, nav, section, article, aside, footer, figcaption {
