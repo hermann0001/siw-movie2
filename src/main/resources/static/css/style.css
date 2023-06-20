@@ -173,22 +173,22 @@ body .page-content{
   border-radius: 23px;
 }
 
-.login{
-  margin-top: 210px;
+.form{
+  margin-top: 180px;
   background-color: #27292a;
-  padding: 80px 60px;
+  padding: 80px 50px;
   border-radius: 23px;
   min-height: 420px;
 }
 
-.login h1{
+.form h1{
   font-size: 40px;
   color: #20c997;
   margin-bottom: 25px;
   text-align: center;
 }
 
-.login label{
+.form label{
   font-style: normal;
   font-size: 25px;
   color: #fff;
@@ -196,20 +196,19 @@ body .page-content{
   display: inline-block;
 }
 
-.login input{
+.form input{
   background-color: #27292a;
   border-radius: 16px;
   border: 1px solid #fff;
   font-size: 20px;
+  color: #fff;
 }
 
-.login #form-col, .register #form-col{
+.form #form-col{
   border-left: 3px solid #1f2122;
 }
 
-.login #register{}
-
-.login input:focus{
+.form input:focus{
   color: #fff;
   outline: none !important;
   border-color: #20c997;
@@ -217,12 +216,13 @@ body .page-content{
   background-color: #27292a;
 }
 
-.login .main-button button{
+.form .main-button button{
   padding: 6px 15px;
   border: none;
+  font-size: 16px;
 }
 
-.login a:hover{
+.form a:hover{
   color: #20c997;
 }
 

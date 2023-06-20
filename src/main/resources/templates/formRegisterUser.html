@@ -12,57 +12,52 @@
 
 	<!-- Additional CSS Files -->
 	<link rel="stylesheet" href="/css/style.css">
-
-	<!-- embedding FontAwesome Kit script -->
-	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container-md px-4">
-		<div class="register">
-			<div class="row gx-4 align-items-center">
-				<div class="p3 col-md-6">
+	<!-- TODO: rivedere la validazione -->
+	<div class="container px-3">
+		<div class="form">
+			<div class="row align-items-center">
+				<div class="col-md-6">
 					<a href="/"><img src="/images/logo-siw.png" alt=""/></a>
 				</div>
-				<div class="p3 col-md-6">
-					<form th:action="@{/register}" method="POST" id="form-col">
-						<h1>Registrazione nuovo utente</h1>
-						<div>
-							<label>Nome</label>
-							<span><input type="text" placeholder="name" required th:field="${user.name}" /></span>
-							<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'">
-				</span>
+				<div class="p4 col-md-6" id="form-col">
+					<form th:action="@{/register}" method="POST">
+						<h1>Registrati</h1>
+						<div class="row">
+							<div class="form-group col-sm-6">
+								<label>Nome</label>
+								<input type="text" placeholder="Mario" class="form-control" th:field="${user.name}" />
+								<span class="mt-2" th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
+							</div>
+							<div class="form-group col-sm-6">
+								<label>Cognome</label>
+								<input type="text" placeholder="Rossi" class="form-control" th:field="${user.surname}" />
+								<span class="mt-1" th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'"></span>
+							</div>
 						</div>
-						<div>
-							<label>Cognome</label>
-							<span><input type="text" placeholder="surname" required th:field="${user.surname}" /></span>
-							<span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'">
-				</span>
-						</div>
-						<div>
+						<div class="form-group my-4">
 							<label>Email</label>
-							<span><input type="text" placeholder="email" required th:field="${user.email}" /></span>
-							<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
-				</span>
+							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${user.email}" />
+							<span class="mt-1" th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'"></span>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label>Username</label>
+								<span><input type="text" placeholder="username" class="form-control" th:field="${credentials.username}" /></span>
+								<span class="mt-1" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" th:style="'color:red'"></span>
+							</div>
+							<div class="form-group col-md-6 mb-3">
+								<label>Password</label>
+								<span><input type="password" placeholder="password" class="form-control" th:field="${credentials.password}" /></span>
+								<span class="mt-1" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'"></span>
+							</div>
+						</div>
+						<div class="main-button py-3">
+							<button type="submit">Registrati</button>
 						</div>
 						<div>
-							<label>Username</label>
-							<span>
-					<input type="text" placeholder="username" required th:field="${credentials.username}" />
-				</span>
-							<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-								  th:style="'color:red'">
-				</span>
-						</div>
-						<div>
-							<label>Password</label>
-							<span><input type="password" placeholder="password" required th:field="${credentials.password}" />
-				</span>
-							<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
-								  th:style="'color:red'">
-				</span>
-						</div>
-						<div>
-							<button type="submit">Registra</button>
+							<span class="form-text">Hai già un account? <a href="/login" th:text="Accedi">Accedi</a></span>
 						</div>
 					</form>
 				</div>
@@ -71,6 +66,21 @@
 		</div>
 
 	</div>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>
+						Copyright © 2023
+						<a href="www.github.com/hermann0001">Hermann Tamilia</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Bootstrap js -->
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
