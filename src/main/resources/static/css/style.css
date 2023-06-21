@@ -117,7 +117,7 @@ header area style
 .header-area .main-nav .nav li a{
   display: block;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: capitalize;
   color: #666;
   transition: all 0.3s ease 0s;
@@ -172,6 +172,15 @@ body .page-content{
   padding: 60px;
   border-radius: 23px;
 }
+.page-content img{
+  width: 370px;
+}
+
+.page-content h2{
+  text-align: center;
+  font-size: 50px;
+}
+
 
 .form{
   margin-top: 180px;
@@ -266,6 +275,10 @@ body .page-content{
   transition: all .3s;
   position: relative;
   overflow: hidden;
+}
+
+.main-button #home-btn{
+  font-size: 24px;
 }
 
 .main-button a:hover, button:hover {
