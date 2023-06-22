@@ -172,7 +172,7 @@ body .page-content{
   padding: 60px;
   border-radius: 23px;
 }
-.page-content img{
+.page-content #notFound{
   width: 370px;
 }
 
@@ -181,6 +181,9 @@ body .page-content{
   font-size: 50px;
 }
 
+.page-content img{
+  border-radius: 23px;
+}
 
 .form{
   margin-top: 180px;
@@ -318,6 +321,28 @@ body .page-content{
 
 .various-film .item .main-button{
   margin-top: 15px;
+}
+
+.film-card{
+  /*margin-top: 60px;*/
+  padding: 30px;
+  background-color: #1f2122;
+  border-radius: 23px;
+}
+
+.film-card .card-text, .film-card .card-title {
+  font-size: 14px;
+  color: #fff;
+}
+
+/*.film-card .card-body{*/
+/*  background-color: #27292a;*/
+/*}*/
+
+.card{
+  border-radius: 23px;
+  border:none;
+  background-color: #1f2122;
 }
 
 footer p{
