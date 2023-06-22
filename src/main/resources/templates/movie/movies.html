@@ -26,7 +26,7 @@
 				<div class="col-12">
 					<nav class="main-nav">
 						<!-- logo -->
-						<a th:href="@{/index}" class="logo">
+						<a href="/" class="logo">
 							<img src="/images/logo.png" alt="logo">
 						</a>
 						<!-- search bar -->
@@ -39,7 +39,7 @@
 						<!-- menu bar -->
 						<ul class="nav">
 							<li>
-								<a href="/index">Home</a>
+								<a href="/">Home</a>
 							</li>
 							<li>
 								<a href="/movie" class="active"> Film </a>
@@ -71,7 +71,7 @@
 			<div class="col-lg-12">
 				<div class="page-content">
 					<!-- se non ci sono film nel sistema mostra questa sezione -->
-				  	<div class="row" th:if="${movies==null || movies.isEmpty()}">
+				  	<div class="row" th:if="${movies == null || movies.isEmpty()}">
 						<div class="col-lg-12">
 							<div class="row gy-5">
 								<div class="col-12">
