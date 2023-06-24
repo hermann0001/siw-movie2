@@ -25,8 +25,7 @@ public class Movie {
         @Max(2023)
         private Integer year;
 
-        @OneToOne
-        private Image image;
+        private String image;
         
         @ManyToOne
         private Artist director;
@@ -60,11 +59,11 @@ public class Movie {
             this.year = year;
         }
         
-        public Image getImage() {
+        public String getImage() {
             return image;
         }
     
-        public void setImage(Image image) {
+        public void setImage(String image) {
             this.image = image;
         }
     

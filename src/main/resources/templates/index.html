@@ -51,9 +51,9 @@
 							</li>
 							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
 							<li th:if="${userDetails}">
-								<a href="/profile">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+								<a href="/profile" th:text="${userDetails.username}">profilo<img src="/images/profile-header-unlock.svg" alt=""></a>
 							</li>
-							<li th:unless="${user}">
+							<li th:unless="${userDetails}">
 								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
 							</li>
 
@@ -77,7 +77,10 @@
 									<h5>Benvenuti su <em>Siw Movie 2</em></h5>
 									<h6>La vendetta...</h6>
 								</div>
-								<div class="main-button">
+								<div class="main-button" th:if="${userDetails}">
+									<a href="/profile">Profilo</a>
+								</div>
+								<div class="main-button" th:unless="${userDetails}">
 									<a href="/login">Accedi!</a>
 								</div>
 							</div>

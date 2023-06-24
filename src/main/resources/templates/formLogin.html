@@ -38,7 +38,7 @@
 							<span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-key"></i></span>
 							<input name="password" type="password" class="form-control" aria-label="Password" aria-describedby="basic-addon2">
 						</div>
-						<span class="form-text" th:if="${param.error != null}">Username o password errati</span>
+						<span class="form-text" style="color: red" th:if="${param.error != null}">Username o password errati</span>
 
 						<div class="main-button py-3">
 							<button type="submit">Login</button>

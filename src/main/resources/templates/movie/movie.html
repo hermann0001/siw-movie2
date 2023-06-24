@@ -50,9 +50,9 @@
 							</li>
 							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
 							<li th:if="${userDetails}">
-								<a href="/profile">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+								<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
 							</li>
-							<li th:unless="${user}">
+							<li th:unless="${userDetails}">
 								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
 							</li>
 
@@ -84,7 +84,7 @@
 									<!-- uso una <ul> anche se supponiamo che ogni film abbia un solo regista per motivi di design -->
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item">
-											<a th:href="@{'/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}">regista</a>
+											<a th:if="${movie.director}" th:href="@{'/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}">regista</a>
 										</li>
 									</ul>
 									<div th:if="${movie.actors != null || !movie.actors.isEmpty()}" class="my-4">

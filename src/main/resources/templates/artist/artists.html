@@ -52,9 +52,9 @@
 							</li>
 							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
 							<li th:if="${userDetails}">
-								<a href="/profile">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+								<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
 							</li>
-							<li th:unless="${user}">
+							<li th:unless="${userDetails}">
 								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
 							</li>
 
@@ -85,7 +85,7 @@
 
 					</div>
 					<!-- se sono presenti dei film si mostra questa sezione -->
-					<div class="film-card">
+					<div class="film-card" th:unless="${artists==null || artists.isEmpty()}">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="heading-section">

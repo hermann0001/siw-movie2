@@ -2,43 +2,117 @@
 <html>
 
 <head>
-	<title>
-		SiwMovie - Homepage
-	</title>
-	<link rel="stylesheet" href="/css/styles.css" />
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+	<title>SiwMovie - Admin</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Additional CSS Files -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- embedding FontAwesome Kit script -->
+	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${user}">
-			<a href="/login">Login</a>
+	<!-- ***** Header Area ***** -->
+	<header class="header-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav class="main-nav">
+						<!-- logo -->
+						<a href="/" class="logo">
+							<img src="/images/logo.png" alt="logo">
+						</a>
+						<!-- search bar -->
+						<div class="search-input">
+							<form id="search" action="#">
+								<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</form>
+						</div>
+						<!-- menu bar -->
+						<ul class="nav">
+							<li>
+								<a href="/" class="active">Home</a>
+							</li>
+							<li>
+								<a href="/movie"> Film </a>
+							</li>
+							<li>
+								<a href="/artist"> Artisti </a>
+							</li>
+							<li>
+								<a href="#"> Recensioni </a>
+							</li>
+							<!-- login or go to profile logic --> <!--TODO: è disallineato con la row-->
+							<li th:if="${userDetails}">
+								<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+							</li>
+							<li th:unless="${userDetails}">
+								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</div>
 		</div>
 	</header>
+	<!-- Header Area End -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-content">
+					<h5>Operazioni per <em>amministratore</em>:</h5>
+					<div class="row my-4">
+						<div class="col-lg-6">
+							<!--<a href="/admin/indexMovie"> <i class="fa-solid fa-film"></i> Gestisci film </a> -->
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Operazioni su film
+								</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item active" href="/admin/manageMovies">Gestisci i film</a></li>
+									<li><a class="dropdown-item" href="/admin/formNewMovie">Inserisci un nuovo film</a></li>
+									<li><a class="dropdown-item" href="/formSearchMovies">Cerca film</a></li>
+								</ul>
+							</div>
+							<a href="/admin/indexMovie">
+								<img src="/images/rene.jpg" alt="rene'"/>
+							</a>
+						</div>
+						<div class="col-lg-6">
+							<a href="/admin/indexArtist"><i class="fa-solid fa-image-portrait"></i> Gestisci artisti </a>
+							<a href="/admin/indexArtist">
+								<img src="/images/stanis.jpeg" alt="stanis"/>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<div><img src="/images/logo-siw.png" width="50%" /></div>
-	<h1>Consulta l'archivio</h1>
-	<div>
-		<a href="/movie">Elenco Film</a>
-	</div>
-	<div>
-		<a href="/artist">Elenco Artisti</a>
-	</div>
-	<h1>Operazioni per amministratore</h1>
-	<div>
-		<a href="/admin/indexMovie">Operazioni sui film</a>
-	</div>
-	<div>
-		<a href="/admin/indexArtist">Operazioni sugli artisti</a>
-	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>
+						Copyright © 2023
+						<a href="www.github.com/hermann0001">Hermann Tamilia</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
-
 </html>
