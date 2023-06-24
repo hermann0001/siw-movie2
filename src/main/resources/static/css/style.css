@@ -190,9 +190,9 @@ body .page-content{
 }
 
 .form{
-  margin-top: 180px;
+  margin-top: 110px;
   background-color: #27292a;
-  padding: 80px 50px;
+  padding: 60px 50px;
   border-radius: 23px;
   min-height: 420px;
 }
@@ -212,7 +212,7 @@ body .page-content{
   display: inline-block;
 }
 
-.form input{
+.form input, .form select{
   background-color: #27292a;
   border-radius: 16px;
   border: 1px solid #fff;
@@ -220,7 +220,7 @@ body .page-content{
   color: #fff;
 }
 
-.form #form-col{
+.form .border-left{
   border-left: 3px solid #1f2122;
 }
 
@@ -235,11 +235,15 @@ body .page-content{
 .form .main-button button{
   padding: 6px 15px;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .form a:hover{
   color: #20c997;
+}
+
+.form .valid{
+  color: red;
 }
 
 .welcome{

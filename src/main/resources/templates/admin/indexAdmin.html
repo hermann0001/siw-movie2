@@ -73,26 +73,39 @@
 					<h5>Operazioni per <em>amministratore</em>:</h5>
 					<div class="row my-4">
 						<div class="col-lg-6">
-							<!--<a href="/admin/indexMovie"> <i class="fa-solid fa-film"></i> Gestisci film </a> -->
-							<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Operazioni su film
-								</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item active" href="/admin/manageMovies">Gestisci i film</a></li>
-									<li><a class="dropdown-item" href="/admin/formNewMovie">Inserisci un nuovo film</a></li>
-									<li><a class="dropdown-item" href="/formSearchMovies">Cerca film</a></li>
-								</ul>
-							</div>
-							<a href="/admin/indexMovie">
-								<img src="/images/rene.jpg" alt="rene'"/>
+							<img class="my-4" src="/images/rene.jpg" alt="rene'"/>
+							<a data-bs-toggle="collapse" href="#collapseMovie" role="button" aria-expanded="false" aria-controls="collapseMovie">
+								<i class="fa-solid fa-film"></i> Gestisci film
 							</a>
+							<div class="collapse" id="collapseMovie">
+								<div class="card card-body">
+									<a href="/admin/formNewMovie">Aggiungi un nuovo film</a>
+								</div>
+								<div class="card card-body">
+									<a href="/admin/manageMovies">Modifica film</a>
+								</div>
+								<div class="card card-body">
+									<a href="/formSearchMovies">Cerca film</a>
+								</div>
+							</div>
 						</div>
 						<div class="col-lg-6">
-							<a href="/admin/indexArtist"><i class="fa-solid fa-image-portrait"></i> Gestisci artisti </a>
-							<a href="/admin/indexArtist">
-								<img src="/images/stanis.jpeg" alt="stanis"/>
+							<img class="my-4" src="/images/stanis.jpeg" alt="stanis"/>
+							<a data-bs-toggle="collapse" href="#collapseArtist" role="button" aria-expanded="false" aria-controls="collapseArtist">
+								<i class="fa-solid fa-image-portrait"></i> Gestisci artisti
 							</a>
+							<div class="collapse" id="collapseArtist">
+								<div class="card card-body">
+									<a href="/admin/formNewArtist">Aggiungi un nuovo artista</a>
+								</div>
+								<div class="card card-body">
+									<a href="/admin/manageArtist">Modifica artista</a>
+								</div>
+								<!-- TODO: serve davvero? -->
+								<div class="card card-body">
+									<a href="/formSearchMovies">Cerca artista</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -114,5 +127,6 @@
 	</footer>
 
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>

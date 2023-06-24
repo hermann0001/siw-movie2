@@ -14,31 +14,31 @@
 	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-	<!-- TODO: rivedere la validazione -->
+	<!-- TODO: rivedere la validazione e il suo stile -->
 	<div class="container px-3">
 		<div class="form">
 			<div class="row align-items-center">
 				<div class="col-md-6">
 					<a href="/"><img src="/images/logo-siw.png" alt=""/></a>
 				</div>
-				<div class="p4 col-md-6" id="form-col">
+				<div class="p4 col-md-6 border-left">
 					<form th:action="@{/register}" method="POST">
 						<h1>Registrati</h1>
 						<div class="row">
 							<div class="form-group col-sm-6">
-								<label>Nome</label>
-								<input type="text" placeholder="Mario" class="form-control" th:field="${user.name}" />
+								<label for="formName">Nome</label>
+								<input type="text" placeholder="Mario" class="form-control" th:field="${user.name}" id="formName"/>
 								<span class="mt-2" th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
 							</div>
 							<div class="form-group col-sm-6">
-								<label>Cognome</label>
-								<input type="text" placeholder="Rossi" class="form-control" th:field="${user.surname}" />
+								<label for="formSurname">Cognome</label>
+								<input type="text" placeholder="Rossi" class="form-control" th:field="${user.surname}" id="formSurname"/>
 								<span class="mt-1" th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'"></span>
 							</div>
 						</div>
 						<div class="form-group my-4">
-							<label>Email</label>
-							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${user.email}" />
+							<label for="formEmail">Email</label>
+							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${user.email}" id="formEmail" />
 							<span class="mt-1" th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'"></span>
 						</div>
 						<div class="row">

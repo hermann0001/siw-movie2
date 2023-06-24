@@ -25,7 +25,7 @@
 				<div class="p-3 col-md-6">
 					<a href="/"><img src="/images/logo-siw.png" alt=""/></a>
 				</div>
-				<div class="p-3 col-md-6" id="form-col">
+				<div class="p-3 col-md-6 border-left">
 					<form th:action="@{/login}" method="POST">
 						<h1>Login</h1>
 						<label class="form-label">Username</label>
@@ -38,7 +38,7 @@
 							<span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-key"></i></span>
 							<input name="password" type="password" class="form-control" aria-label="Password" aria-describedby="basic-addon2">
 						</div>
-						<span class="form-text" style="color: red" th:if="${param.error != null}">Username o password errati</span>
+						<span class="form-text validation" style="color: red" th:if="${param.error != null}">Username o password errati</span>
 
 						<div class="main-button py-3">
 							<button type="submit">Login</button>

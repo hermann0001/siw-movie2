@@ -31,7 +31,7 @@ public class Artist {
 	private LocalDate dateOfBirth;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfDeath;
-	private String urlOfPicture;
+	private String picture;
 	
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
@@ -76,12 +76,12 @@ public class Artist {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
-	public String getUrlOfPicture() {
-		return urlOfPicture;
+	public String getPicture() {
+		return picture;
 	}
 	
-	public void setUrlOfPicture(String urlOfPicture) {
-		this.urlOfPicture = urlOfPicture;
+	public void setPicture(String urlOfPicture) {
+		this.picture = urlOfPicture;
 	}
 	
 	public Set<Movie> getActorOf() {

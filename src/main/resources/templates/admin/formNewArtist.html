@@ -1,56 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
-	<title>
-		New Artist
-	</title>
-	<link rel="stylesheet" href="/css/styles.css" />
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+	<title>New Artist</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Additional CSS Files -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- embedding FontAwesome Kit script -->
+	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${user}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<!-- ***** Header Area ***** -->
+<header class="header-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<nav class="main-nav">
+					<!-- logo -->
+					<a href="/" class="logo">
+						<img src="/images/logo.png" alt="logo">
+					</a>
+					<!-- search bar -->
+					<div class="search-input">
+						<form id="search" action="#">
+							<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</form>
+					</div>
+					<!-- menu bar -->
+					<ul class="nav">
+						<li>
+							<a href="/">Home</a>
+						</li>
+						<li>
+							<a href="/movie" class="active"> Film </a>
+						</li>
+						<li>
+							<a href="/artist"> Artisti </a>
+						</li>
+						<li>
+							<a href="#"> Recensioni </a>
+						</li>
+						<!-- login or go to profile logic --> <!--TODO: è disallineato con la row-->
+						<li th:if="${userDetails}">
+							<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+						</li>
+						<li th:unless="${userDetails}">
+							<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
+						</li>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Aggiungi un artista</h1>
-	<form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
-		<div>
-			<span th:text="${messaggioErrore}">Errore</span>
+					</ul>
+				</nav>
+			</div>
 		</div>
-		
-		<div>
-			<label>Nome:</label> <span><input required type="text" th:field="${artist.name}" /></span>
-		</div>
+	</div>
+</header>
+<!-- Header Area End -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="form">
+				<div class="row g-4 align-item-center">
+					<div class="col-md-6 p-3">
+						<!-- TODO: fare ArtistValidator -->
+						<form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
+							<h1> Aggiungi un film!</h1>
+							<div class="row mb-3">
+								<div class="form-group col-sm-6">
+									<label for="formName" class="form-label">Nome:</label>
+									<input type="text" placeholder="Sergio" th:field="${artist.name}" class="form-control" id="formName"/>
+									<span class="form-text valid" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+								</div>
+								<div class="form-group col-sm-6">
+									<label for="formSurname" class="form-label">Cognome</label>
+									<input type="text" placeholder="Leone" class="form-control" th:field="${artist.surname}" id="formSurname"/>
+									<span class="form-text valid" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:style="'color:red'"></span>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-6">
+									<label for="formDate" class="form-label">Data di nascita:</label>
+									<input class="form-control" type="date" th:field="${artist.dateOfBirth}" id="formDate">
+								</div>
+								<span class="form-text valid" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 
-		<div>
-			<label>Cognome:</label> <span><input required type="text" th:field="${artist.surname}" /></span>
-		</div>
+								<!-- TODO: da fare data di morte (opzionale)-->
+							</div>
 
-		<div>
-			<label>Data di nascita:</label> <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
-		</div>
+							<div class="col-10 mb-3">
+								<label for="formFile" class="form-label">Foto:</label>
+								<input class="form-control" type="file" id="formFile" th:field="${artist.picture}" />
+							</div>
 
-		<div>
-			<label>Fotografia (url):</label> <span><input type="text" th:field="${artist.urlOfPicture}" /></span>
+							<div th:if="${#fields.hasGlobalErrors()}">
+								<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+							</div>
+							<div class="main-button py-3">
+								<button type="submit">Conferma</button>
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-6 p-3 d-flex align-content-center border-left">
+						<img src="/images/leo.gif" alt="leo"/>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-		<div>
-			<span><button type="submit">Conferma</button></span>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<p>
+					Copyright © 2023
+					<a href="www.github.com/hermann0001">Hermann Tamilia</a>
+				</p>
+			</div>
 		</div>
-	</form>
+	</div>
+</footer>
+<!-- Bootstrap js-->
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
-
 </html>

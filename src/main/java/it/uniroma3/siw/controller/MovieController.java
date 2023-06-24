@@ -37,6 +37,18 @@ public class MovieController {
 		model.addAttribute("movie", new Movie());
 		return "admin/formNewMovie";
 	}
+	@PostMapping("/admin/movie")
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+
+		this.movieValidator.validate(movie, bindingResult);
+		if (!bindingResult.hasErrors()) {
+			this.movieRepository.save(movie);
+			model.addAttribute("movie", movie);
+			return "/movie/movie";
+		} else {
+			return "admin/formNewMovie";
+		}
+	}
 
 	@GetMapping(value = "/admin/formUpdateMovie/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
@@ -44,10 +56,7 @@ public class MovieController {
 		return "admin/formUpdateMovie";
 	}
 
-	@GetMapping(value = "/admin/indexMovie")
-	public String indexMovie() {
-		return "admin/indexMovie";
-	}
+
 
 	@GetMapping(value = "/admin/manageMovies")
 	public String manageMovies(Model model) {
@@ -73,19 +82,6 @@ public class MovieController {
 		model.addAttribute("artists", artistRepository.findAll());
 		model.addAttribute("movie", movieRepository.findById(id).get());
 		return "admin/directorsToAdd";
-	}
-
-	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
-
-		this.movieValidator.validate(movie, bindingResult);
-		if (!bindingResult.hasErrors()) {
-			this.movieRepository.save(movie);
-			model.addAttribute("movie", movie);
-			return "/movie/movie";
-		} else {
-			return "admin/formNewMovie";
-		}
 	}
 
 	@GetMapping("/movie/{id}")

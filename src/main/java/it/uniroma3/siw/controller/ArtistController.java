@@ -22,12 +22,8 @@ public class ArtistController {
 		model.addAttribute("artist", new Artist());
 		return "admin/formNewArtist";
 	}
-	
-	@GetMapping(value="/admin/indexArtist")
-	public String indexArtist() {
-		return "admin/indexArtist";
-	}
-	
+
+	//TODO: aggiungere l'artist validator
 	@PostMapping("/admin/artist")
 	public String newArtist(@ModelAttribute("artist") Artist artist, Model model) {
 		if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
