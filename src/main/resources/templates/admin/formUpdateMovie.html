@@ -1,55 +1,157 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="it">
 <head>
-	<title>
-		New Movie
-	</title>
-	<link rel="stylesheet" href="/css/styles.css" />
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
-</head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+	<title>Update Movie</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Additional CSS Files -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- embedding FontAwesome Kit script -->
+	<script src="https://kit.fontawesome.com/132524fe8d.js" crossorigin="anonymous"></script>
+</head>
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${user}">
-			<a href="/login">Login</a>
+	<!-- ***** Header Area ***** -->
+	<header class="header-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav class="main-nav">
+						<!-- logo -->
+						<a href="/" class="logo">
+							<img src="/images/logo.png" alt="logo">
+						</a>
+						<!-- search bar -->
+						<div class="search-input">
+							<form id="search" action="#">
+								<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</form>
+						</div>
+						<!-- menu bar -->
+						<ul class="nav">
+							<li>
+								<a href="/">Home</a>
+							</li>
+							<li>
+								<a href="/movie" class="active"> Film </a>
+							</li>
+							<li>
+								<a href="/artist"> Artisti </a>
+							</li>
+							<li>
+								<a href="#"> Recensioni </a>
+							</li>
+							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
+							<li th:if="${userDetails}">
+								<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+							</li>
+							<li th:unless="${userDetails}">
+								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</div>
 		</div>
 	</header>
+	<!-- Header Area End -->
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
-	<h1>Aggiorna film</h1>
-	<div th:if="${movie}">
-		<div>
-			<span th:text="${movie.title}">Up!</span>
-			<span th:text="'(' + ${movie.year} + ')'">2000</span>
-		</div>
-		<div th:if="${movie.director}">
-			<span>Regista: </span><span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven
-				Spielberg</span>
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a></span>
-		</div>
-		<div th:unless="${movie.director}">
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
-		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-content" th:if="${movie}">
+					<h2>Aggiorna film</h2>
+					<div class="row mt-5">
+						<div class="col-lg-6">
+							<img src="https://picsum.photos/200/300" alt="film_image"/>
+						</div>
+						<div class="col-lg-6">
+							<div class="row my-4">
+								<div class="col-12">
+									<h4 class="film-title" th:text="${movie.title}">titolo film</h4>
+									<h5 th:text="'(' + ${movie.year} + ')'">anno</h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<h4 class="film-artist">Regista:</h4>
+									<!-- uso una <ul> anche se supponiamo che ogni film abbia un solo regista per motivi di design -->
+									<div class="dropdown my-4">
+										<button th:if="${movie.director}" class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${movie.director.name} + ' ' + ${movie.director.surname}">
+											Regista attuale
+										</button>
+										<button th:unless="${movie.director}" class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											Aggiungi regista
+										</button>
+										<ul class="dropdown-menu">
+											<li th:if="${movie.director}"><a style="color: darkred" class="dropdown-item" th:href="@{'/admin/removeDirector/' + ${movie.id}}">Rimuovi</a></li>
+											<li th:each="artist : ${directorsList}"><a th:text="${artist.name} + ' ' + ${artist.surname}" class="dropdown-item" th:href="@{'/admin/setDirectorToMovie/' + ${artist.id} + '/' + ${movie.id}}">regista</a></li>
+										</ul>
+									</div>
 
-		<div>
-			<span>Attori: </span>
-			<div th:each="actor: ${movie.actors}">
-				<span th:text="${actor.name} + ' ' + ${actor.surname}">Al Pacino</span>
+									<h4 class="film-artist">Attori:</h4>
+									<div class="my-4" th:if="${!movie.actors.isEmpty()}">
+										<ul class="list-group list-group-flush">
+											<li th:each="artist : ${movie.actors}" class="list-group-item">
+												<a th:href="@{'/artist/' + ${artist.id}}" th:text="${artist.name} + ' ' + ${artist.surname}"></a>
+											</li>
+										</ul>
+										<div class="main-button my-4">
+											<a th:href="@{'/admin/updateActors/' + ${movie.id}}"> Modifica attori</a>
+										</div>
+									</div>
+									<div class="dropdown my-4" th:unless="${!movie.actors.isEmpty()}">
+										<button type="button" class="btn btn-dark dropdown-toggle">
+											Aggiungi Attori
+										</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="page-content" th:unless="${movie}">
+					<!-- TODO: da rivedere... (non mi piace impaginazione) -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="row gy-5">
+								<div class="col-12">
+									<h2>Questo film non esiste...</h2>
+								</div>
+								<div class="col-12 d-flex justify-content-center">
+									<img class="notFound" src="/images/jeffrey_lebowski.gif" alt="nofilmhere"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<a th:href="@{'/admin/updateActors/' + ${movie.id}}">
-				<button type="button">Modifica</button>
-			</a>
 		</div>
-		<div th:unless="${movie}">Film non esistente</div>
-</body>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>
+						Copyright © 2023
+						<a href="www.github.com/hermann0001">Hermann Tamilia</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 
+	<!-- Bootstrap js -->
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

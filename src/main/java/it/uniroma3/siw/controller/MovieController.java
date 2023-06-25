@@ -53,6 +53,9 @@ public class MovieController {
 	@GetMapping(value = "/admin/formUpdateMovie/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", movieRepository.findById(id).get());
+		model.addAttribute("directorsList", artistRepository.findAllDirectorsNotInMovie(id));
+
+
 		return "admin/formUpdateMovie";
 	}
 
@@ -66,14 +69,12 @@ public class MovieController {
 
 	@GetMapping(value = "/admin/setDirectorToMovie/{directorId}/{movieId}")
 	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId, Model model) {
-
 		Artist director = this.artistRepository.findById(directorId).get();
 		Movie movie = this.movieRepository.findById(movieId).get();
 		movie.setDirector(director);
 		this.movieRepository.save(movie);
 
-		model.addAttribute("movie", movie);
-		return "admin/formUpdateMovie";
+		return formUpdateMovie(movieId, model);
 	}
 
 
@@ -82,6 +83,15 @@ public class MovieController {
 		model.addAttribute("artists", artistRepository.findAll());
 		model.addAttribute("movie", movieRepository.findById(id).get());
 		return "admin/directorsToAdd";
+	}
+
+	@GetMapping(value = "/admin/removeDirector/{id}")
+	public String removeDirector(@PathVariable("id") Long id, Model model){
+		Movie movie = this.movieRepository.findById(id).get();
+		movie.setDirector(null);
+		this.movieRepository.save(movie);
+
+		return formUpdateMovie(id, model);
 	}
 
 	@GetMapping("/movie/{id}")
@@ -109,8 +119,7 @@ public class MovieController {
 
 	@GetMapping("/admin/updateActors/{id}")
 	public String updateActors(@PathVariable("id") Long id, Model model) {
-
-		List<Artist> actorsToAdd = this.actorsToAdd(id);
+		List<Artist> actorsToAdd = (List<Artist>) this.artistRepository.findActorsNotInMovie(id);
 		model.addAttribute("actorsToAdd", actorsToAdd);
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
 
@@ -125,7 +134,7 @@ public class MovieController {
 		actors.add(actor);
 		this.movieRepository.save(movie);
 
-		List<Artist> actorsToAdd = actorsToAdd(movieId);
+		List<Artist> actorsToAdd = (List<Artist>) this.artistRepository.findActorsNotInMovie(movieId);
 
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsToAdd", actorsToAdd);
@@ -141,23 +150,12 @@ public class MovieController {
 		actors.remove(actor);
 		this.movieRepository.save(movie);
 
-		List<Artist> actorsToAdd = actorsToAdd(movieId);
+		List<Artist> actorsToAdd = (List<Artist>) this.artistRepository.findActorsNotInMovie(movieId);
 
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsToAdd", actorsToAdd);
 
 		return "admin/actorsToAdd";
-	}
-
-
-	//TODO: ELIMINARE STA ROBACCIA
-	private List<Artist> actorsToAdd(Long movieId) {
-		List<Artist> actorsToAdd = new ArrayList<>();
-
-		for (Artist a : artistRepository.findActorsNotInMovie(movieId)) {
-			actorsToAdd.add(a);
-		}
-		return actorsToAdd;
 	}
 }
 

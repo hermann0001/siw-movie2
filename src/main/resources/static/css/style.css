@@ -235,7 +235,6 @@ body .page-content{
 .form .main-button button{
   padding: 6px 15px;
   border: none;
-  font-size: 18px;
 }
 
 .form a:hover{
@@ -244,6 +243,12 @@ body .page-content{
 
 .form .valid{
   color: red;
+}
+
+#addDirectorForm{
+  padding: 0 0 0 0;
+  margin-top: 20px;
+  min-height: 0;
 }
 
 .welcome{
@@ -276,6 +281,39 @@ body .page-content{
   font-size: 50px;
 }
 
+.page-content .dropdown button{
+  background: none;
+  border: none;
+  font-size: 20px;
+}
+
+.page-content .dropdown button:hover{
+  background-color: #424649;
+}
+
+.page-content .dropdown button:focus{
+  border: none;
+}
+
+.page-content .dropdown .dropdown-menu {
+  background-color: #27292a;
+}
+
+.page-content .dropdown a{
+  color: #fff;
+}
+
+.page-content .dropdown a:hover{
+  background-color: #424649;
+  color: #20c997;
+}
+
+.collapse, .collapsing {
+  background-color: #1f2122;
+  border-radius: 23px;
+}
+
+
 .welcome h5 em, .page-content h5 em, .page-content h6 em, .page-content h4 em{
   font-style: normal;
   color: #20c997;
@@ -289,8 +327,8 @@ body .page-content{
   margin-bottom: 25px;
 }
 
-.main-button a, button{
-  font-size: 14px;
+.main-button a, .main-button button{
+  font-size: 18px;
   color: #fff;
   background-color: #20c997;
   padding: 12px 30px;
