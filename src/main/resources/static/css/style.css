@@ -265,6 +265,29 @@ body .page-content{
   color: #fff;
 }
 
+
+.film-title .editable-text a{
+  font-size: 50px;
+}
+
+.editable-text a{
+  background-color: #27292a;
+  border-radius: 18px;
+  color: #fff !important;
+  font-size: 40px;
+  border:none;
+  text-align: left;
+  font-style: normal;
+  text-transform: uppercase;
+  padding: 0;
+  font-weight: 700;
+}
+
+.editable-text a:hover{
+  background-color: #424649;
+  color: #20c997 !important;
+}
+
 .page-content .film-title, .page-content .artist-name{
   font-size: 50px;
   color: #20c997;
@@ -275,6 +298,8 @@ body .page-content{
   font-size: 45px;
   font-weight: 400;
 }
+
+
 
 .page-content h2{
   text-align: center;

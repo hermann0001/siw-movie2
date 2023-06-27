@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Artist;
@@ -39,7 +35,6 @@ public class MovieController {
 	}
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
-
 		this.movieValidator.validate(movie, bindingResult);
 		if (!bindingResult.hasErrors()) {
 			this.movieRepository.save(movie);
@@ -52,14 +47,12 @@ public class MovieController {
 
 	@GetMapping(value = "/admin/formUpdateMovie/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", movieRepository.findById(id).get());
-		model.addAttribute("directorsList", artistRepository.findAllDirectorsNotInMovie(id));
-
+		model.addAttribute("movie", this.movieRepository.findById(id).get());
+		model.addAttribute("directorsList", this.artistRepository.findAllDirectorsNotInMovie(id));
+		model.addAttribute("actorsList", this.artistRepository.findActorsNotInMovie(id));
 
 		return "admin/formUpdateMovie";
 	}
-
-
 
 	@GetMapping(value = "/admin/manageMovies")
 	public String manageMovies(Model model) {
@@ -77,13 +70,6 @@ public class MovieController {
 		return formUpdateMovie(movieId, model);
 	}
 
-
-	@GetMapping(value = "/admin/addDirector/{id}")
-	public String addDirector(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("artists", artistRepository.findAll());
-		model.addAttribute("movie", movieRepository.findById(id).get());
-		return "admin/directorsToAdd";
-	}
 
 	@GetMapping(value = "/admin/removeDirector/{id}")
 	public String removeDirector(@PathVariable("id") Long id, Model model){
@@ -117,15 +103,6 @@ public class MovieController {
 		return "movie/foundMovies";
 	}
 
-	@GetMapping("/admin/updateActors/{id}")
-	public String updateActors(@PathVariable("id") Long id, Model model) {
-		List<Artist> actorsToAdd = (List<Artist>) this.artistRepository.findActorsNotInMovie(id);
-		model.addAttribute("actorsToAdd", actorsToAdd);
-		model.addAttribute("movie", this.movieRepository.findById(id).get());
-
-		return "admin/actorsToAdd";
-	}
-
 	@GetMapping(value = "/admin/addActorToMovie/{actorId}/{movieId}")
 	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
 		Movie movie = this.movieRepository.findById(movieId).get();
@@ -134,12 +111,7 @@ public class MovieController {
 		actors.add(actor);
 		this.movieRepository.save(movie);
 
-		List<Artist> actorsToAdd = (List<Artist>) this.artistRepository.findActorsNotInMovie(movieId);
-
-		model.addAttribute("movie", movie);
-		model.addAttribute("actorsToAdd", actorsToAdd);
-
-		return "admin/actorsToAdd";
+		return formUpdateMovie(movieId, model);
 	}
 
 	@GetMapping(value = "/admin/removeActorFromMovie/{actorId}/{movieId}")
@@ -150,12 +122,16 @@ public class MovieController {
 		actors.remove(actor);
 		this.movieRepository.save(movie);
 
-		List<Artist> actorsToAdd = (List<Artist>) this.artistRepository.findActorsNotInMovie(movieId);
+		return formUpdateMovie(movieId, model);
+	}
 
-		model.addAttribute("movie", movie);
-		model.addAttribute("actorsToAdd", actorsToAdd);
+	@PostMapping(value="/admin/updateTitle/{movieId}")
+	public String updateTitle(@RequestParam("title") String title, @PathVariable("movieId") Long id, Model model){
+		Movie movie = this.movieRepository.findById(id).get();
+		movie.setTitle(title);
+		this.movieRepository.save(movie);
 
-		return "admin/actorsToAdd";
+		return formUpdateMovie(id, model);
 	}
 }
 

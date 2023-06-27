@@ -77,44 +77,49 @@
 						<div class="col-lg-6">
 							<div class="row my-4">
 								<div class="col-12">
-									<h4 class="film-title" th:text="${movie.title}">titolo film</h4>
-									<h5 th:text="'(' + ${movie.year} + ')'">anno</h5>
+									<div class="film-title editable-text">
+										<a th:text="${movie.title}"> titolo film </a>		<!-- TODO: usare i fragments per rimpiazzare codice html -->
+									</div>
+									<div class="mt-1 editable-text">
+										<a th:text="'(' + ${movie.year} + ')'">anno</a> 	<!-- TODO: usare i fragments per rimpiazzare codice html -->
+									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-12">
 									<h4 class="film-artist">Regista:</h4>
-									<!-- uso una <ul> anche se supponiamo che ogni film abbia un solo regista per motivi di design -->
-									<div class="dropdown my-4">
-										<button th:if="${movie.director}" class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${movie.director.name} + ' ' + ${movie.director.surname}">
-											Regista attuale
-										</button>
-										<button th:unless="${movie.director}" class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<div th:if="${movie.director}">
+										<a th:href="@{'/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}">regista</a>
+										<a th:href="@{'/admin/removeDirector/' + ${movie.id}}">
+											<i class="fa-solid fa-xmark" style="color: darkred"></i>
+										</a>
+									</div>
+									<div class="dropdown my-2">
+										<button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 											Aggiungi regista
 										</button>
 										<ul class="dropdown-menu">
-											<li th:if="${movie.director}"><a style="color: darkred" class="dropdown-item" th:href="@{'/admin/removeDirector/' + ${movie.id}}">Rimuovi</a></li>
 											<li th:each="artist : ${directorsList}"><a th:text="${artist.name} + ' ' + ${artist.surname}" class="dropdown-item" th:href="@{'/admin/setDirectorToMovie/' + ${artist.id} + '/' + ${movie.id}}">regista</a></li>
 										</ul>
 									</div>
 
 									<h4 class="film-artist">Attori:</h4>
-									<div class="my-4" th:if="${!movie.actors.isEmpty()}">
-										<ul class="list-group list-group-flush">
-											<li th:each="artist : ${movie.actors}" class="list-group-item">
-												<a th:href="@{'/artist/' + ${artist.id}}" th:text="${artist.name} + ' ' + ${artist.surname}"></a>
-											</li>
-										</ul>
-										<div class="main-button my-4">
-											<a th:href="@{'/admin/updateActors/' + ${movie.id}}"> Modifica attori</a>
+									<div>
+										<div th:each="actor : ${movie.actors}">
+											<a th:href="@{'/artist/' + ${actor.id}}" th:text="${actor.name} + ' ' + ${actor.surname}">attore</a>
+											<a th:href="@{'/admin/removeActorFromMovie/' + ${actor.id} + '/' + ${movie.id}}">
+												<i class="fa-solid fa-xmark" style="color: darkred"></i>
+											</a>
+										</div>
+										<div class="dropdown my-2">
+											<button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+												Aggiungi Attori
+											</button>
+											<ul class="dropdown-menu">
+												<li th:each="artist : ${actorsList}"><a th:text="${artist.name} + ' ' + ${artist.surname}" class="dropdown-item" th:href="@{'/admin/addActorToMovie/' + ${artist.id} + '/' + ${movie.id}}">attore</a></li>
+											</ul>
 										</div>
 									</div>
-									<div class="dropdown my-4" th:unless="${!movie.actors.isEmpty()}">
-										<button type="button" class="btn btn-dark dropdown-toggle">
-											Aggiungi Attori
-										</button>
-									</div>
-
 								</div>
 							</div>
 						</div>

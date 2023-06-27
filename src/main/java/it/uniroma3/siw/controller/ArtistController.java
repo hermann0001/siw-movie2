@@ -14,7 +14,7 @@ import it.uniroma3.siw.repository.ArtistRepository;
 @Controller
 public class ArtistController {
 	
-	@Autowired 
+	 @Autowired
 	private ArtistRepository artistRepository;
 
 	@GetMapping(value="/admin/formNewArtist")
@@ -38,7 +38,9 @@ public class ArtistController {
 
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("artist", this.artistRepository.findById(id).get());
+		Artist artist = this.artistRepository.findById(id).get();
+		System.out.println(artist.getDirectedMovies().toString());
+		model.addAttribute("artist", artist);
 		return "artist/artist";
 	}
 
@@ -46,5 +48,44 @@ public class ArtistController {
 	public String getArtists(Model model) {
 		model.addAttribute("artists", this.artistRepository.findAll());
 		return "artist/artists";
+	}
+
+	@GetMapping(value = "/admin/manageArtists")
+	public String manageMovies(Model model) {
+		model.addAttribute("artists", this.artistRepository.findAll());
+		return "admin/manageArtists";
+	}
+
+	@GetMapping(value = "/admin/formUpdateArtist/{id}")
+	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("artist", this.artistRepository.findById(id).get());
+		model.addAttribute("directedMoviesList", this.artistRepository.findAllDirectorsNotInMovie(id));
+		model.addAttribute("starredMoviesList", this.artistRepository.findActorsNotInMovie(id));
+
+		return "admin/formUpdateArtist";
+	}
+
+	@GetMapping(value = "/admin/removeMovieFromStarredMovies/{actorId}/{movieId}")
+	public String removeMovieFromStarredMovies(@PathVariable("actorId") Long idA, @PathVariable("movieId") Long idM, Model model){
+		//TODO: FAI LO STESSO DI removeActorFromMovie() :: MovieController
+		return "foo";
+	}
+
+	@GetMapping(value = "/admin/removeMovieFromDirectedMovies/{actorId}/{movieId}")
+	public String removeMovieFromDirectedMovies(@PathVariable("actorId") Long idA, @PathVariable("movieId") Long idM, Model model){
+		//TODO: FAI LO STESSO DI removeDirectorFromMovie() :: MovieController
+		return "foo";
+	}
+
+	@GetMapping(value = "/admin/addMovieToStarredMovies/{actorId}/{movieId}")
+	public String addMovieToStarredMovies(@PathVariable("actorId") Long idA, @PathVariable("movieId") Long idM, Model model) {
+		//TODO: FAI LO STESSO DI addActorToMovie() :: MovieController
+		return "foo";
+	}
+
+	@GetMapping(value = "/admin/addMovieToDirectedMovies/{actorId}/{movieId}")
+	public String addMovieToDirectedMovies(@PathVariable("actorId") Long idA, @PathVariable("movieId") Long idM, Model model) {
+		//TODO: FAI LO STESSO DI addDirectorToMovie() :: MovieController
+		return "foo";
 	}
 }
