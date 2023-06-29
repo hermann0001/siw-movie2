@@ -87,18 +87,18 @@
             <div class="row">
               <div class="col-12">
                 <h4 class="film-artist">Film Diretti:</h4>
-                <div th:if="${artist.directedMovies}">
-                  <a th:href="@{'/movie/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}">regista</a>
-                  <a th:href="@{'/admin/removeDirector/' + ${movie.id}}">
+                <div th:each="movie : ${artist.directedMovies}">
+                  <a th:href="@{'/movie/' + ${movie.id}}" th:text="${movie.title} + ' (' + ${movie.year} + ')'">film</a>
+                  <a th:href="@{'/admin/removeMovieFromDirectedMovies/' + ${artist.id} + '/' + ${movie.id}}">
                     <i class="fa-solid fa-xmark" style="color: darkred"></i>
                   </a>
                 </div>
                 <div class="dropdown my-2">
                   <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Aggiungi regista
+                    Aggiungi
                   </button>
                   <ul class="dropdown-menu">
-                    <li th:each="artist : ${directorsList}"><a th:text="${artist.name} + ' ' + ${artist.surname}" class="dropdown-item" th:href="@{'/admin/setDirectorToMovie/' + ${artist.id} + '/' + ${movie.id}}">regista</a></li>
+                    <li th:each="movie : ${directedMoviesList}"><a th:text="${movie.title} + ' (' + ${movie.year} + ')'" class="dropdown-item" th:href="@{'/admin/addMovieToDirectedMovies/' + ${artist.id} + '/' + ${movie.id}}">regista</a></li>
                   </ul>
                 </div>
 
@@ -106,13 +106,13 @@
                 <div>
                   <div th:each="movie : ${artist.starredMovies}">
                     <a th:href="@{'/movie/' + ${movie.id}}" th:text="${movie.title} + ' (' + ${movie.year} + ')'">film</a>
-                    <a th:href="@{'/admin/removeMovieFromStarredMovies/' + ${actor.id} + '/' + ${movie.id}}">
+                    <a th:href="@{'/admin/removeMovieFromStarredMovies/' + ${artist.id} + '/' + ${movie.id}}">
                       <i class="fa-solid fa-xmark" style="color: darkred"></i>
                     </a>
                   </div>
                   <div class="dropdown my-2">
                     <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      Aggiungi Film in cui recita
+                      Aggiungi
                     </button>
                     <ul class="dropdown-menu">
                       <li th:each="movie : ${starredMoviesList}"><a th:text="${movie.title} + ' (' + ${movie.year} + ')'" class="dropdown-item" th:href="@{'/admin/addMovieToStarredMovies/' + ${artist.id} + '/' + ${movie.id}}">film</a></li>

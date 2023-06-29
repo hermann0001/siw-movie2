@@ -15,15 +15,15 @@ public class MyErrorController implements ErrorController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            HttpStatus statusCode = HttpStatus.valueOf(Integer.parseInt(status.toString()));
 
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+            if(statusCode.is4xxClientError()) {
                 return "/errors/error404";
             }
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
+            else if(statusCode.is5xxServerError()) {
+                return "/errors/error500";
             }
         }
-        return "/errors/error";
+        return "/errors/error404";
     }
 }

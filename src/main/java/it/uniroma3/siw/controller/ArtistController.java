@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ public class ArtistController {
 	
 	 @Autowired
 	private ArtistRepository artistRepository;
+	 @Autowired
+	private MovieRepository movieRepository;
 
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
@@ -59,8 +62,8 @@ public class ArtistController {
 	@GetMapping(value = "/admin/formUpdateArtist/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("artist", this.artistRepository.findById(id).get());
-		model.addAttribute("directedMoviesList", this.artistRepository.findAllDirectorsNotInMovie(id));
-		model.addAttribute("starredMoviesList", this.artistRepository.findActorsNotInMovie(id));
+		model.addAttribute("directedMoviesList", this.movieRepository.findMoviesNotDirectedByArtist(id));
+		model.addAttribute("starredMoviesList", this.movieRepository.findMoviesNotStarredByArtist(id));
 
 		return "admin/formUpdateArtist";
 	}

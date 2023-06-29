@@ -177,6 +177,11 @@ body .page-content{
   width: 370px;
 }
 
+.page-content .internalError{
+  width: 500px;
+  height: 350px;
+}
+
 .page-content img{
   border-radius: 23px;
 }
@@ -187,6 +192,21 @@ body .page-content{
 
 .page-content a:hover{
   color: #20c997;
+}
+
+.page-content .review{
+  background-color: #1f2122;
+  border-radius: 23px;
+}
+
+.page-content .review .blockquote-footer{
+  color: #20c997;
+  font-size: 20px;
+}
+
+.page-content .review .review-mark{
+  color: #ffd924;
+  font-size: 24px;
 }
 
 .form{
@@ -212,7 +232,7 @@ body .page-content{
   display: inline-block;
 }
 
-.form input, .form select{
+.form input, .form select, .form textarea{
   background-color: #27292a;
   border-radius: 16px;
   border: 1px solid #fff;
@@ -224,7 +244,7 @@ body .page-content{
   border-left: 3px solid #1f2122;
 }
 
-.form input:focus{
+.form input:focus, .form textarea:focus{
   color: #fff;
   outline: none !important;
   border-color: #20c997;
