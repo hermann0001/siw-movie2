@@ -34,6 +34,7 @@ public class ReviewController {
             Movie movie = this.movieService.getMovie(movieId);
             this.reviewService.saveReview(review, movie, this.sessionData.getLoggedUser());
             model.addAttribute("movie", movie);
+            model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));
         }
         return "/movie/movie";
     }

@@ -99,6 +99,11 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-6 mt-3">
+									<h4 class="film-artist">Average Rating:  <em th:text="${averageRating}"></em></h4>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row justify-content-center" th:if="${!movie.reviews.isEmpty()}">
@@ -111,13 +116,16 @@
 									<p class="lh-sm" th:text="${review.text}"> testo recensione</p>
 									<figcaption class="blockquote-footer mt-3" th:text="${review.author.name + ' ' + review.author.surname}">Nome utente</figcaption>
 									<div class="review-mark" th:switch="${review.mark}">
-										<div th:case="5" th:insert="/fragments/starrating.html :: 5-star"></div>
-										<div th:case="4" th:insert="/fragments/starrating.html :: 4-star"></div>
-										<div th:case="3" th:insert="/fragments/starrating.html :: 3-star"></div>
-										<div th:case="2" th:insert="/fragments/starrating.html :: 2-star"></div>
-										<div th:case="1" th:insert="/fragments/starrating.html :: 1-star"></div>
+										<div th:case="5" th:insert="~{/fragments/starrating.html :: 5-star}"></div>
+										<div th:case="4" th:insert="~{/fragments/starrating.html :: 4-star}"></div>
+										<div th:case="3" th:insert="~{/fragments/starrating.html :: 3-star}"></div>
+										<div th:case="2" th:insert="~{/fragments/starrating.html :: 2-star}"></div>
+										<div th:case="1" th:insert="~{/fragments/starrating.html :: 1-star}"></div>
 									</div>
 								</figure>
+								<div class="justify-content-end"> <!-- TODO: mostralo solo se l'utente loggato è l'autore (usa getLoggedUser) -->
+									<a href="cancella">Cancella</a>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -3,7 +3,6 @@ package it.uniroma3.siw.service;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
-import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +27,10 @@ public class ReviewService {
 
     public boolean exists(Review review) {
         return this.reviewRepository.existsByMovieAndAuthor(review.getMovie(), review.getAuthor());
+    }
+
+    @Transactional
+    public Double getAverageRatingByMovie(Long movieId){
+        return this.reviewRepository.getAverageRatingByMovie(movieId);
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import it.uniroma3.siw.model.Review;
+import it.uniroma3.siw.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,12 @@ import jakarta.validation.Valid;
 public class MovieController {
 	@Autowired
 	private MovieRepository movieRepository;
-
 	@Autowired
 	private ArtistRepository artistRepository;
-
 	@Autowired
 	private MovieValidator movieValidator;
+	@Autowired
+	private ReviewService reviewService;
 
 	@GetMapping(value = "/admin/formNewMovie")
 	public String formNewMovie(Model model) {
@@ -84,6 +85,7 @@ public class MovieController {
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
+		model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(id));
 		model.addAttribute("review", new Review());
 		return "/movie/movie";
 	}
