@@ -109,13 +109,13 @@
 										<h5 th:text="${review.title}">esempio titolo recensione</h5>
 									</blockquote>
 									<p class="lh-sm" th:text="${review.text}"> testo recensione</p>
-									<figcaption class="blockquote-footer mt-3" th:text="${review.author}">Nome utente</figcaption>
-									<div class="review-mark" id="starDiv" th:onload="javascript:generateStars(${review.mark})">
-										<!--<i class="fa-solid fa-star"></i>
-										<i class="fa-solid fa-star"></i>
-										<i class="fa-solid fa-star"></i>
-										<i class="fa-solid fa-star"></i>
-										<i class="fa-solid fa-star"></i> -->
+									<figcaption class="blockquote-footer mt-3" th:text="${review.author.name + ' ' + review.author.surname}">Nome utente</figcaption>
+									<div class="review-mark" th:switch="${review.mark}">
+										<div th:case="5" th:insert="/fragments/starrating.html :: 5-star"></div>
+										<div th:case="4" th:insert="/fragments/starrating.html :: 4-star"></div>
+										<div th:case="3" th:insert="/fragments/starrating.html :: 3-star"></div>
+										<div th:case="2" th:insert="/fragments/starrating.html :: 2-star"></div>
+										<div th:case="1" th:insert="/fragments/starrating.html :: 1-star"></div>
 									</div>
 								</figure>
 							</div>
@@ -124,7 +124,7 @@
 					<div class="row justify-content-center" th:if="${userDetails}" >
 						<div class="col-8">
 							<div class="form review p-4">
-								<form th:action="@{'addNewReviewToMovie/' + ${movie.id} + '/' + ${userDetails.id}}" th:object="${review}" method="POST">
+								<form th:action="@{'addNewReviewToMovie/' + ${movie.id}}" th:object="${review}" method="POST">
 									<h1>Scrivi una recensione!</h1>
 									<div class="col-4 form-group">
 										<label for="reviewTitle" class="form-label">Titolo</label>
@@ -179,15 +179,5 @@
 	</footer>
 	<!-- Bootstrap js -->
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script>
-		function generateStars(numberOfStars){
-			let starDiv = document.getElementById("starDiv").innerHTML;
-			const star = "<i class=\" fa-solid fa-star\"></i>";
-
-			for(let i = 0; i < numberOfStars; i++){
-				starDiv += star;
-			}
-		}
-	</script>
 </body>
 </html>

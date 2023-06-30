@@ -26,7 +26,7 @@ public class ReviewController {
     @Autowired
     MovieService movieService;
 
-    @PostMapping(value = "addNewReviewToMovie/{movieId}")
+    @PostMapping(value = "/movie/addNewReviewToMovie/{movieId}")
     public String newReview(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult,
                             @PathVariable("movieId") Long movieId, Model model){
         this.reviewValidator.validate(review, bindingResult);
