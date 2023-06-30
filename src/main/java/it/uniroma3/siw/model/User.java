@@ -12,7 +12,6 @@ public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 	@NotNull
 	private String name;
 	@NotBlank
@@ -20,7 +19,7 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	private List<Review> reviews;
 
     public Long getId() {

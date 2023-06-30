@@ -49,9 +49,9 @@
 							<li>
 								<a href="#"> Recensioni </a>
 							</li>
-							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
+							<!-- login or go to profile logic -->
 							<li th:if="${userDetails}">
-								<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+								<a href="/profile" th:text="${credentials.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
 							</li>
 							<li th:unless="${userDetails}">
 								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
@@ -101,28 +101,28 @@
 							</div>
 						</div>
 					</div>
-					<div class="row justify-content-center" th:if="${movie.reviews}">
-						<div class="col-8 mt-4">
+					<div class="row justify-content-center" th:if="${!movie.reviews.isEmpty()}">
+						<div class="col-8 mt-4" th:each="review : ${movie.reviews}">
 							<div class="review p-4">
 								<figure class="text-center">
 									<blockquote class="blockquote">
-										<h5>esempio titolo recensione</h5>
+										<h5 th:text="${review.title}">esempio titolo recensione</h5>
 									</blockquote>
-									<p class="lh-sm"> testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla testo recensione abbastanza lungo bla bla bnla bla bla bla bla bla bla</p>
-									<figcaption class="blockquote-footer mt-3">Nome utente</figcaption>
-									<div class="review-mark">
+									<p class="lh-sm" th:text="${review.text}"> testo recensione</p>
+									<figcaption class="blockquote-footer mt-3" th:text="${review.author}">Nome utente</figcaption>
+									<div class="review-mark" id="starDiv" th:onload="javascript:generateStars(${review.mark})">
+										<!--<i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
-										<i class="fa-solid fa-star"></i>
-										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i> -->
 									</div>
 								</figure>
 							</div>
 						</div>
 					</div>
-					<div class="row justify-content-center" >
-						<div class="col-8 mt-4">
+					<div class="row justify-content-center" th:if="${userDetails}" >
+						<div class="col-8">
 							<div class="form review p-4">
 								<form th:action="@{'addNewReviewToMovie/' + ${movie.id} + '/' + ${userDetails.id}}" th:object="${review}" method="POST">
 									<h1>Scrivi una recensione!</h1>
@@ -179,5 +179,15 @@
 	</footer>
 	<!-- Bootstrap js -->
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		function generateStars(numberOfStars){
+			let starDiv = document.getElementById("starDiv").innerHTML;
+			const star = "<i class=\" fa-solid fa-star\"></i>";
+
+			for(let i = 0; i < numberOfStars; i++){
+				starDiv += star;
+			}
+		}
+	</script>
 </body>
 </html>

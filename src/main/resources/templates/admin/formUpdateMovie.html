@@ -51,7 +51,7 @@
 							</li>
 							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
 							<li th:if="${userDetails}">
-								<a href="/profile" th:text="${userDetails.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+								<a href="/profile" th:text="${credentials.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
 							</li>
 							<li th:unless="${userDetails}">
 								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
