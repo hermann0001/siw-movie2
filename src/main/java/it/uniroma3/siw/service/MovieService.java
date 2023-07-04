@@ -16,4 +16,21 @@ public class MovieService {
     public Movie getMovie(Long id){
         return this.movieRepository.findById(id).get();
     }
+
+    @Transactional
+    public Movie saveMovie(Movie movie) {
+        return this.movieRepository.save(movie);
+    }
+
+    public Movie findMovie(Long id) {
+        return this.movieRepository.findById(id).orElse(null);
+    }
+
+    public Iterable<Movie> findMovies(int year){
+        return this.movieRepository.findByYear(year);
+    }
+
+    public Iterable<Movie> getAllMovies() {
+        return this.movieRepository.findAll();
+    }
 }
