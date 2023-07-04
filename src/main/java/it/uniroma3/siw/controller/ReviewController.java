@@ -31,7 +31,7 @@ public class ReviewController {
                             @PathVariable("movieId") Long movieId, Model model){
         this.reviewValidator.validate(review, bindingResult);
         if(!bindingResult.hasErrors()) {
-            Movie movie = this.movieService.getMovie(movieId);
+            Movie movie = this.movieService.findMovie(movieId);
             this.reviewService.saveReview(review, movie, this.sessionData.getLoggedUser());
             model.addAttribute("movie", movie);
             model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));

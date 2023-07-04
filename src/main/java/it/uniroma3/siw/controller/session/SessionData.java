@@ -2,10 +2,7 @@ package it.uniroma3.siw.controller.session;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
-import it.uniroma3.siw.repository.CredentialsRepository;
-import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.CredentialsService;
-import it.uniroma3.siw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -21,8 +18,8 @@ public class SessionData {
     private Credentials credentials;
     @Autowired
     private CredentialsService credentialsService;
-    @Autowired
-    private UserService userService;
+/*    @Autowired
+    private UserService userService;*/
 
     public Credentials getLoggedCredentials(){
         this.update();

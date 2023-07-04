@@ -22,11 +22,10 @@ public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 	@NotNull
 	private String name;
+	@NotNull
 	private String surname;
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

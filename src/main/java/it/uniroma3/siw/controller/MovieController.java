@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import java.util.Set;
 
 import it.uniroma3.siw.model.Review;
+import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
 import it.uniroma3.siw.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
-import it.uniroma3.siw.repository.ArtistRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -22,11 +22,12 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	@Autowired
-	private ArtistRepository artistRepository;
-	@Autowired
 	private MovieValidator movieValidator;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private ArtistService artistService;
+
 
 	@GetMapping(value = "/admin/formNewMovie")
 	public String formNewMovie(Model model) {
@@ -48,8 +49,8 @@ public class MovieController {
 	@GetMapping(value = "/admin/formUpdateMovie/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieService.findMovie(id));
-		model.addAttribute("directorsList", this.artistRepository.findAllDirectorsNotInMovie(id));
-		model.addAttribute("actorsList", this.artistRepository.findActorsNotInMovie(id));
+		model.addAttribute("directorsList", this.artistService.findAllDirectorsNotInMovie(id));
+		model.addAttribute("actorsList", this.artistService.findActorsNotInMovie(id));
 
 		return "admin/formUpdateMovie";
 	}
@@ -61,23 +62,15 @@ public class MovieController {
 	}
 
 	@GetMapping(value = "/admin/setDirectorToMovie/{directorId}/{movieId}")
-	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId, Model model) {
-		Artist director = this.artistRepository.findById(directorId).get();
-		Movie movie = this.movieService.findMovie(movieId);
-		movie.setDirector(director);
-		this.movieService.saveMovie(movie);
-
-		return formUpdateMovie(movieId, model);
+	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId) {
+		this.movieService.setDirectorToMovie(movieId, directorId);
+		return "redirect://admin/formUpdateMovie/" + movieId;
 	}
 
-
 	@GetMapping(value = "/admin/removeDirector/{id}")
-	public String removeDirector(@PathVariable("id") Long id, Model model){
-		Movie movie = this.movieService.findMovie(id);
-		movie.setDirector(null);
-		this.movieService.saveMovie(movie);
-
-		return formUpdateMovie(id, model);
+	public String removeDirector(@PathVariable("id") Long id){
+		this.movieService.removeDirector(id);
+		return "redirect:/admin/formUpdateMovie/" + id;
 	}
 
 	@GetMapping("/movie/{id}")
@@ -106,34 +99,21 @@ public class MovieController {
 	}
 
 	@GetMapping(value = "/admin/addActorToMovie/{actorId}/{movieId}")
-	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
-		Movie movie = this.movieService.findMovie(movieId);
-		Artist actor = this.artistRepository.findById(actorId).get();
-		Set<Artist> actors = movie.getActors();
-		actors.add(actor);
-		this.movieService.saveMovie(movie);
-
-		return formUpdateMovie(movieId, model);
+	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId) {
+		this.movieService.addActorToMovie(movieId, actorId);
+		return "redirect:/admin/formUpdateMovie/" + movieId;
 	}
 
 	@GetMapping(value = "/admin/removeActorFromMovie/{actorId}/{movieId}")
-	public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
-		Movie movie = this.movieService.findMovie(movieId);
-		Artist actor = this.artistRepository.findById(actorId).get();
-		Set<Artist> actors = movie.getActors();
-		actors.remove(actor);
-		this.movieService.saveMovie(movie);
-
-		return formUpdateMovie(movieId, model);
+	public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId) {
+		this.movieService.removeActorFromMovie(movieId, actorId);
+		return "redirect:/admin/formUpdateMovie/" + movieId;
 	}
 
 	@PostMapping(value="/admin/updateTitle/{movieId}")
-	public String updateTitle(@RequestParam("title") String title, @PathVariable("movieId") Long id, Model model){
-		Movie movie = this.movieService.findMovie(id);
-		movie.setTitle(title);
-		this.movieService.saveMovie(movie);
-
-		return formUpdateMovie(id, model);
+	public String updateTitle(@RequestParam("title") String title, @PathVariable("movieId") Long id){
+		this.movieService.updateTitle(title, id);
+		return "redirect:/admin/formUpdateMovie/" + id;
 	}
 }
 

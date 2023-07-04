@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.controller.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,12 +21,12 @@ import jakarta.validation.Valid;
 
 @Controller
 public class AuthenticationController {
-	
 	@Autowired
 	private CredentialsService credentialsService;
-
     @Autowired
 	private UserService userService;
+	@Autowired
+	private SessionData sessionData;
 	
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
@@ -45,23 +46,15 @@ public class AuthenticationController {
 		if (authentication instanceof AnonymousAuthenticationToken) {
 	        return "index";
 		}
-		else {
-			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-			//model.addAttribute("userDetails", userDetails);
-			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+		else if (this.sessionData.getLoggedCredentials().getRole().equals(Credentials.ADMIN_ROLE)) {
 				return "admin/indexAdmin";
 			}
-		}
         return "index";
 	}
 		
     @GetMapping(value = "/success")
     public String defaultAfterLogin(Model model) {
-        
-    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-    	if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+    	if (this.sessionData.getLoggedCredentials().getRole().equals(Credentials.ADMIN_ROLE)) {
             return "admin/indexAdmin";
         }
         return "index";
