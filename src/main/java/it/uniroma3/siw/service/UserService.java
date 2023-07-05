@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * The UserService handles logic for Users.
@@ -56,4 +54,10 @@ public class UserService {
             result.add(user);
         return result;
     }
+
+    @Transactional
+    public Set<User> getAllMovieReviewsAuthors(Long id) {
+        return this.userRepository.findAllReviewAuthorsByMovie(id);
+    }
+
 }

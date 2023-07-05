@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users") // cambiamo nome perchè in postgres user e' una parola riservata
@@ -54,35 +55,25 @@ public class User {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + name.hashCode();
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(email, user.email);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (!name.equals(other.name))
-			return false;
-		if (surname == null) {
-			if (other.surname != null)
-				return false;
-		} else if (!surname.equals(other.surname))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else return email.equals(other.email);
-		return true;
+	public int hashCode() {
+		return Objects.hash(email);
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", surname='" + surname + '\'' +
+				", email='" + email + '\'' +
+				'}';
 	}
 }

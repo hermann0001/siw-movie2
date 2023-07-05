@@ -3,9 +3,11 @@ package it.uniroma3.siw.controller;
 import java.util.Set;
 
 import it.uniroma3.siw.model.Review;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
 import it.uniroma3.siw.service.ReviewService;
+import it.uniroma3.siw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ public class MovieController {
 	private ReviewService reviewService;
 	@Autowired
 	private ArtistService artistService;
+	@Autowired
+	private UserService userService;
 
 
 	@GetMapping(value = "/admin/formNewMovie")
@@ -78,7 +82,7 @@ public class MovieController {
 		model.addAttribute("movie", this.movieService.findMovie(id));
 		model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(id));
 		model.addAttribute("review", new Review());
-		model.addAttribute("reviewAuthorSet", this.movieService.getAllMovieReviewsAuthors(id));
+		model.addAttribute("reviewAuthorSet",  this.userService.getAllMovieReviewsAuthors(id));
 		return "/movie/movie";
 	}
 

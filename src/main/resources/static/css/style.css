@@ -129,7 +129,8 @@ header area style
 
 }
 
-.header-area .main-nav .nav li:hover a, .header-area .main-nav .nav li a.active {
+.header-area .main-nav .nav li:hover a,
+.header-area .main-nav .nav li a.active {
   color: #20c997 !important;
 }
 
@@ -147,11 +148,6 @@ header area style
   max-width: 30px;
   border-radius: 50%;
   margin-left: 5px;
-}
-
-.header-area .main-nav .nav li:hover a,
-.header-area .main-nav .nav li a.active {
-  color: #20c997 !important;
 }
 
 .header-area .main-nav .nav li:last-child:hover a,
@@ -477,17 +473,12 @@ p{
   font-size: 15px;
   line-height: 30px;
   color: #fff;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 img{
   width: 100%;
   overflow:hidden;
-}
-
-a{
-  color: #CCC;
-  text-decoration: none;
 }
 
 ul{

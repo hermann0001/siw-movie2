@@ -124,13 +124,13 @@
 										<div th:case="1" th:insert="~{/fragments/starrating.html :: 1-star}"></div>
 									</div>
 								</figure>
-								<div class="justify-content-end" th:if="${review.author.equals(userDetails)}"> <!-- TODO: mostralo solo se l'utente loggato è l'autore (usa getLoggedUser) -->
+								<div class="justify-content-end" th:if="${review.author.equals(userDetails) || (credentials != null && credentials.isAdmin())}">
 									<a href="cancella">Cancella</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row justify-content-center" th:if="${userDetails}" >
+					<div class="row justify-content-center" th:if="${userDetails != null && !reviewAuthorSet.contains(userDetails)}">
 						<div class="col-8">
 							<div class="form review p-4">
 								<form th:action="@{'addNewReviewToMovie/' + ${movie.id}}" th:object="${review}" method="POST">

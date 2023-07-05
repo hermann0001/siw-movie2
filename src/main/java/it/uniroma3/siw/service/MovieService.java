@@ -90,11 +90,4 @@ public class MovieService {
         this.artistService.saveArtist(director);
     }
 
-    public Set<User> getAllMovieReviewsAuthors(Long id) {
-        return this.getAllMovieReviews(id);
-    }
-
-    private Iterable<Review> getAllMovieReviews(Long id) {
-        return this.reviewRepository.findAllReviewsByMovie(id);     //TODO: ????
-    }
 }

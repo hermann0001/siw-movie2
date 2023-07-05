@@ -22,6 +22,10 @@ public class Credentials {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
+
+	public boolean isAdmin(){
+		return this.role.equals(ADMIN_ROLE);
+	}
 	
 	public String getUsername() {
 		return username;
