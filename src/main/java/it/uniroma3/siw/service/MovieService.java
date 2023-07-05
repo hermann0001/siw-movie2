@@ -2,6 +2,8 @@ package it.uniroma3.siw.service;
 
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.model.Review;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,5 +88,13 @@ public class MovieService {
         director.getDirectedMovies().add(movie);
         this.saveMovie(movie);
         this.artistService.saveArtist(director);
+    }
+
+    public Set<User> getAllMovieReviewsAuthors(Long id) {
+        return this.getAllMovieReviews(id);
+    }
+
+    private Iterable<Review> getAllMovieReviews(Long id) {
+        return this.reviewRepository.findAllReviewsByMovie(id);     //TODO: ????
     }
 }

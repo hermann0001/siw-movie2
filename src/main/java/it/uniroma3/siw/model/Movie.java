@@ -1,8 +1,6 @@
 package it.uniroma3.siw.model;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -34,6 +32,11 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Review> reviews;
+
+    public Movie(){
+        this.actors = new HashSet<>();
+        this.reviews = new LinkedList<>();
+    }
 
     public Long getId() {
         return id;

@@ -2,6 +2,7 @@ package it.uniroma3.siw.repository;
 
 import java.util.List;
 
+import it.uniroma3.siw.model.Review;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

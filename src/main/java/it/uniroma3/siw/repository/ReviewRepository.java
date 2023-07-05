@@ -16,4 +16,7 @@ public interface ReviewRepository extends CrudRepository<Review, Long> {
     public Iterable<Review> findAllByMovie(Movie movie);
     @Query(value = "SELECT AVG(mark) FROM review WHERE movie_id = :movieId", nativeQuery = true)
     public Double getAverageRatingByMovie(@Param("movieId")Long id);
+
+    @Query(value="SELECT * FROM review WHERE movie_id = :id", nativeQuery = true)
+    Iterable<Review> findAllReviewsByMovie(Long id);
 }

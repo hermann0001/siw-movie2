@@ -78,6 +78,7 @@ public class MovieController {
 		model.addAttribute("movie", this.movieService.findMovie(id));
 		model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(id));
 		model.addAttribute("review", new Review());
+		model.addAttribute("reviewAuthorSet", this.movieService.getAllMovieReviewsAuthors(id));
 		return "/movie/movie";
 	}
 
