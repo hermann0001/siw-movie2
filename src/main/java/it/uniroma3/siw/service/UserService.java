@@ -60,4 +60,8 @@ public class UserService {
         return this.userRepository.findAllReviewAuthorsByMovie(id);
     }
 
+    @Transactional
+    public boolean exists(User user) {
+        return this.userRepository.existsByEmail(user.getEmail());
+    }
 }

@@ -11,4 +11,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query(value = "SELECT * FROM users WHERE users.id IN (SELECT author_id FROM review WHERE movie_id = :movieId)", nativeQuery = true)
     public Set<User> findAllReviewAuthorsByMovie(Long movieId);
+
+    public boolean existsByEmail(String email);
 }

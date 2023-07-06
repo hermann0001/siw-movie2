@@ -1,6 +1,8 @@
 package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.controller.session.SessionData;
+import it.uniroma3.siw.controller.validator.CredentialsValidator;
+import it.uniroma3.siw.controller.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,11 +29,15 @@ public class AuthenticationController {
 	private UserService userService;
 	@Autowired
 	private SessionData sessionData;
+	@Autowired
+	private UserValidator userValidator;
+	@Autowired
+	private CredentialsValidator credentialsValidator;
 	
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
-		model.addAttribute("user", new User());
-		model.addAttribute("credentials", new Credentials());
+		model.addAttribute("userData", new User());
+		model.addAttribute("userCredentials", new Credentials());
 		return "formRegisterUser";
 	}
 	
@@ -61,12 +67,13 @@ public class AuthenticationController {
     }
 
 	@PostMapping(value = { "/register" })
-    public String registerUser(@Valid @ModelAttribute("user") User user,
+    public String registerUser(@Valid @ModelAttribute("userData") User user,
                  BindingResult userBindingResult, @Valid
-                 @ModelAttribute("credentials") Credentials credentials,
+                 @ModelAttribute("userCredentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
-
+		this.userValidator.validate(user, userBindingResult);
+		this.credentialsValidator.validate(credentials, credentialsBindingResult);
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);

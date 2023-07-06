@@ -142,32 +142,32 @@
 									<h1>Scrivi una recensione!</h1>
 									<div class="col-4 form-group">
 										<label for="reviewTitle" class="form-label">Titolo</label>
-										<input type="text" id="reviewTitle" class="form-control" th:field="${review.title}">
-										<span class="mt-1" th:if="${#fields.hasErrors('title')}" th:errors="${review.title}"></span>
+										<input type="text" id="reviewTitle" class="form-control" th:field="*{title}">
+										<span class="mt-1" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
 									</div>
 									<div class="col-4 form-group my-3">
 										<label class="form-label">Voto</label>
 										<fieldset>
 											<span class="star-cb-group">
-											  <input type="radio" id="rating-5" name="rating" value="5" th:field="${review.mark}" />
+											  <input type="radio" id="rating-5" name="rating" value="5" th:field="*{mark}" />
 											  <label for="rating-5">5</label>
-											  <input type="radio" id="rating-4" name="rating" value="4" th:field="${review.mark}" checked="checked" />
+											  <input type="radio" id="rating-4" name="rating" value="4" th:field="*{mark}" checked="checked" />
 											  <label for="rating-4">4</label>
-											  <input type="radio" id="rating-3" name="rating" value="3" th:field="${review.mark}"/>
+											  <input type="radio" id="rating-3" name="rating" value="3" th:field="*{mark}"/>
 											  <label for="rating-3">3</label>
-											  <input type="radio" id="rating-2" name="rating" value="2" th:field="${review.mark}" />
+											  <input type="radio" id="rating-2" name="rating" value="2" th:field="*{mark}" />
 											  <label for="rating-2">2</label>
-											  <input type="radio" id="rating-1" name="rating" value="1" th:field="${review.mark}" />
+											  <input type="radio" id="rating-1" name="rating" value="1" th:field="*{mark}" />
 											  <label for="rating-1">1</label>
-											  <input type="radio" id="rating-0" name="rating" value="0" th:field="${review.mark}" class="star-cb-clear" />
+											  <input type="radio" id="rating-0" name="rating" value="0" th:field="*{mark}" class="star-cb-clear" />
 											  <label for="rating-0">0</label>
 											</span>
 										</fieldset>
-										<span class="mt-1 valid" th:if="${#fields.hasErrors('mark')}" th:errors="${review.mark}"></span>
+										<span class="mt-1 valid" th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></span>
 									</div>
 									<div class="form-group mt-3">
 										<label for="reviewContent">Testo</label>
-										<textarea class="form-control" id="reviewContent" rows="5" th:field="${review.text}"></textarea>
+										<textarea class="form-control" id="reviewContent" rows="5" th:field="*{text}"></textarea>
 									</div>
 									<div th:if="${#fields.hasGlobalErrors()}">
 										<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>

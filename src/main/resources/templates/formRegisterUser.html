@@ -24,33 +24,41 @@
 				<div class="p4 col-md-6 border-left">
 					<form th:action="@{/register}" method="POST">
 						<h1>Registrati</h1>
-						<div class="row">
-							<div class="form-group col-sm-6">
-								<label for="formName">Nome</label>
-								<input type="text" placeholder="Mario" class="form-control" th:field="${user.name}" id="formName"/>
-								<span class="mt-2 valid" th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}"></span>
+						<div th:object="${userData}">
+							<div class="row">
+								<div class="form-group col-sm-6">
+									<label for="formName">Nome</label>
+									<input type="text" placeholder="Mario" class="form-control" th:field="*{name}" id="formName"/>
+									<p class="form-text mt-1 valid" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+								</div>
+								<div class="form-group col-sm-6">
+									<label for="formSurname">Cognome</label>
+									<input type="text" placeholder="Rossi" class="form-control" th:field="*{surname}" id="formSurname"/>
+									<p class="form-text mt-1 valid" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+								</div>
 							</div>
-							<div class="form-group col-sm-6">
-								<label for="formSurname">Cognome</label>
-								<input type="text" placeholder="Rossi" class="form-control" th:field="${user.surname}" id="formSurname"/>
-								<span class="mt-1 valid" th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}"></span>
+							<div class="form-group my-4">
+								<label for="formEmail">Email</label>
+								<input type="email" placeholder="youremail@example.com" class="form-control" th:field="*{email}" id="formEmail" />
+								<p class="form-text mt-1 valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+							</div>
+							<div class="mb-2 mt-1" th:if="${#fields.hasGlobalErrors()}">
+								<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 							</div>
 						</div>
-						<div class="form-group my-4">
-							<label for="formEmail">Email</label>
-							<input type="email" placeholder="youremail@example.com" class="form-control" th:field="${user.email}" id="formEmail" />
-							<span class="mt-1 valid" th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}"></span>
-						</div>
-						<div class="row">
+						<div class="row" th:object="${userCredentials}">
 							<div class="form-group col-md-6">
-								<label>Username</label>
-								<span><input type="text" placeholder="username" class="form-control" th:field="${credentials.username}" /></span>
-								<span class="mt-1 valid" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"></span>
+								<label for="formUsername">Username</label>
+								<input type="text" placeholder="username" class="form-control" th:field="*{username}" id="formUsername"/>
+								<p class="form-text mt-1 valid" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
 							</div>
 							<div class="form-group col-md-6 mb-3">
-								<label>Password</label>
-								<span><input type="password" placeholder="password" class="form-control" th:field="${credentials.password}" /></span>
-								<span class="mt-1 valid" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"></span>
+								<label for="formPassword">Password</label>
+								<input type="password" placeholder="password" class="form-control" th:field="*{password}" id="formPassword" />
+								<p class="form-text mt-1 valid" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+							</div>
+							<div class="mt-1" th:if="${#fields.hasGlobalErrors()}">
+								<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 							</div>
 						</div>
 						<div class="main-button py-3">

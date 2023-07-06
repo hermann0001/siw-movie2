@@ -13,11 +13,12 @@ public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	@NotNull
+	@NotBlank
 	private String name;
 	@NotBlank
 	private String surname;
 	@Column(nullable = false, unique = true)
+	@NotBlank
 	private String email;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
