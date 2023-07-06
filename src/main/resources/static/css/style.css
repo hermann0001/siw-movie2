@@ -258,7 +258,7 @@ body .page-content{
 }
 
 .form .valid{
-  color: red;
+  color: darkred;
 }
 
 #addDirectorForm{

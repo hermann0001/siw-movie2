@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,11 +32,29 @@ public class ReviewController {
                             @PathVariable("movieId") Long movieId, Model model){
         this.reviewValidator.validate(review, bindingResult);
         if(!bindingResult.hasErrors()) {
-            Movie movie = this.movieService.findMovie(movieId);
-            this.reviewService.saveReview(review, movie, this.sessionData.getLoggedUser());
-            model.addAttribute("movie", movie);
+            this.reviewService.saveReview(review, this.movieService.findMovie(movieId), this.sessionData.getLoggedUser());
             model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));
         }
-        return "/movie/movie";
+        return "redirect:/movie/" + movieId;
+    }
+
+    @GetMapping(value = "/admin/removeReview/{reviewId}")
+    public String adminRemoveReview(@PathVariable("reviewId")Long reviewId, Model model){
+        Review review = this.reviewService.findReview(reviewId);
+        Movie movie = review.getMovie();
+        this.reviewService.deleteReview(review);
+        return "redirect:/movie/" + movie.getId();
+    }
+
+    @GetMapping(value="/removeReview/{reviewId}")
+    public String authorRemoveReview(@PathVariable("reviewId")Long reviewId, Model model){
+        Review review = this.reviewService.findReview(reviewId);
+        Movie movie = review.getMovie();
+        //CONTROLLA SE LA CHIAMATA GET NON E' STATA FORMATA MANUALMENTE DA UN ALTRO UTENTE
+        if(!this.sessionData.getLoggedUser().equals(review.getAuthor()))
+            return "/errors/error404";
+
+        this.reviewService.deleteReview(review);
+        return "redirect:/movie/" + movie.getId();
     }
 }

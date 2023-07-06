@@ -124,13 +124,18 @@
 										<div th:case="1" th:insert="~{/fragments/starrating.html :: 1-star}"></div>
 									</div>
 								</figure>
-								<div class="justify-content-end" th:if="${review.author.equals(userDetails) || (credentials != null && credentials.isAdmin())}">
-									<a href="cancella">Cancella</a>
+								<div class="justify-content-end" th:if="${credentials != null && credentials.isAdmin()}"> <!-- MOSTRA IL BOTTONE CANCELLA RECENSIONE SOLO SE L'UTENTE LOGGATO E' UN ADMIN-->
+									<a th:href="@{'/admin/removeReview/' + ${review.id}}">Cancella</a>
+								</div>
+								<div th:unless="${credentials != null && credentials.isAdmin()}">
+									<div class="justify-content-end" th:if="${review.author.equals(userDetails)}"> <!-- MOSTRA IL BOTTONE CANCELLA RECENSIONE SOLO SE L'UTENTE LOGGATO E' L'AUTORE-->
+										<a th:href="@{'/removeReview/' + ${review.id}}">Cancella</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row justify-content-center" th:if="${userDetails != null && !reviewAuthorSet.contains(userDetails)}">
+					<div class="row justify-content-center" th:if="${userDetails != null && reviewAuthorSet != null &&!reviewAuthorSet.contains(userDetails)}">
 						<div class="col-8">
 							<div class="form review p-4">
 								<form th:action="@{'addNewReviewToMovie/' + ${movie.id}}" th:object="${review}" method="POST">
@@ -138,6 +143,7 @@
 									<div class="col-4 form-group">
 										<label for="reviewTitle" class="form-label">Titolo</label>
 										<input type="text" id="reviewTitle" class="form-control" th:field="${review.title}">
+										<span class="mt-1" th:if="${#fields.hasErrors('title')}" th:errors="${review.title}"></span>
 									</div>
 									<div class="col-4 form-group my-3">
 										<label class="form-label">Voto</label>
@@ -157,10 +163,14 @@
 											  <label for="rating-0">0</label>
 											</span>
 										</fieldset>
+										<span class="mt-1 valid" th:if="${#fields.hasErrors('mark')}" th:errors="${review.mark}"></span>
 									</div>
 									<div class="form-group mt-3">
 										<label for="reviewContent">Testo</label>
 										<textarea class="form-control" id="reviewContent" rows="5" th:field="${review.text}"></textarea>
+									</div>
+									<div th:if="${#fields.hasGlobalErrors()}">
+										<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 									</div>
 									<div class="main-button my-4">
 										<button type="submit">Invia!</button>

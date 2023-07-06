@@ -36,7 +36,12 @@ public class ReviewService {
         return this.reviewRepository.getAverageRatingByMovie(movieId);
     }
 
-    private Iterable<Review> getAllMovieReviews(Long id) {
-        return this.reviewRepository.findByMovie(id);
+    @Transactional
+    public void deleteReview(Review review) {
+        this.reviewRepository.delete(review);
+    }
+
+    public Review findReview(Long reviewId) {
+        return this.reviewRepository.findById(reviewId).orElse(null);
     }
 }
