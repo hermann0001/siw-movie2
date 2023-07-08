@@ -14,17 +14,13 @@ public class Review {
 
     @NotBlank
     private String title;
-
     @NotNull
     @Min(1)
     @Max(5)
     private Integer mark;
-
     private String text;
-
     @ManyToOne
     private User author;
-
     @ManyToOne
     private Movie movie;
 
