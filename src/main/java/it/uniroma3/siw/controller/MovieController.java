@@ -28,9 +28,13 @@ public class MovieController {
 	@Autowired
 	private ReviewService reviewService;
 	@Autowired
+	private ReviewValidator reviewValidator;
+	@Autowired
 	private ArtistService artistService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SessionData sessionData;
 
 
 	@GetMapping(value = "/admin/formNewMovie")
@@ -44,7 +48,7 @@ public class MovieController {
 		if (!bindingResult.hasErrors()) {
 			this.movieService.saveMovie(movie);
 			model.addAttribute("movie", movie);
-			return "/movie/movie";
+			return "redirect:/admin/formUpdateMovie/" + movie.getId();
 		} else {
 			return "admin/formNewMovie";
 		}
@@ -119,6 +123,17 @@ public class MovieController {
 	public String updateTitle(@RequestParam("title") String title, @PathVariable("movieId") Long id){
 		this.movieService.updateTitle(title, id);
 		return "redirect:/admin/formUpdateMovie/" + id;
+	}
+
+	@PostMapping(value = "/movie/addNewReviewToMovie/{movieId}")
+	public String newReview(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult,
+							@PathVariable("movieId") Long movieId, Model model){
+		this.reviewValidator.validate(review, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			this.reviewService.saveReview(review, this.movieService.findMovie(movieId), this.sessionData.getLoggedUser());
+			model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));
+		}
+		return getMovie(movieId, model);
 	}
 
 	@GetMapping(value = "/admin/removeMovie/{movieId}")

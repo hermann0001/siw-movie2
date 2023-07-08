@@ -16,9 +16,18 @@ public class MovieValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors errors) {
 		Movie movie = (Movie)o;
-		if (movie.getTitle() != null && movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear())) {
-			errors.reject("movie.duplicate");
+		Integer year;
+		try{
+			year = movie.getYear();
+			if (movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear())) {
+				errors.reject("movie.duplicate");
+			}
+		}catch(NullPointerException e){
+			return;
 		}
+		/*if(movie.getTitle() != null){
+			errors.rejectValue("title", "NotBlank.movie.year");
+		}*/
 	}
 	@Override
 	public boolean supports(Class<?> aClass) {

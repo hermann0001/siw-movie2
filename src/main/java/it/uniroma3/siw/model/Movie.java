@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.*;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class Movie {
 
     private String image;
 
+    @Valid
     @ManyToOne
     private Artist director;
 
@@ -53,11 +55,11 @@ public class Movie {
         this.title = title;
     }
 
-    public @NotNull Integer getYear() {
+    public Integer getYear() {
         return year;
-    }
+    } //TODO: ??
 
-    public void setYear(@NotNull Integer year) {
+    public void setYear( Integer year) {
         this.year = year;
     }
 
@@ -105,6 +107,6 @@ public class Movie {
         if (getClass() != obj.getClass())
             return false;
         Movie other = (Movie) obj;
-        return Objects.equals(title, other.title) && year.equals(other.year);
+        return Objects.equals(this.title, other.title) && this.year.equals(other.year);
     }
 }

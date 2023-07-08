@@ -215,11 +215,11 @@
 									</div>
 									<span class="form-text valid" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
 								</div>
-
 								<div class="col-10 mb-3">
 									<label for="formFile" class="form-label">Locandina:</label>
 									<input class="form-control" type="file" id="formFile" th:field="${movie.image}" />
 								</div>
+
 								<!-- TODO: possibilità di inserire piu foto e di mettere direttamente attori e regista -->
 								<div th:if="${#fields.hasGlobalErrors()}">
 									<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
