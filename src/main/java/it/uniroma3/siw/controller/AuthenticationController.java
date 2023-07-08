@@ -84,4 +84,13 @@ public class AuthenticationController {
         }
         return "formRegisterUser";
     }
+
+	@GetMapping(value = "/profile")
+	public String profile(Model model){
+		if(this.sessionData.getLoggedUser() == null)
+			return "redirect:/login";
+
+		model.addAttribute("userProfile", this.userService.getUser(this.sessionData.getLoggedUser().getId()));
+		return "profile";
+	}
 }
