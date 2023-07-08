@@ -23,7 +23,7 @@
           </a>
           <!-- search bar -->
           <div class="search-input">
-            <form id="search" action="#">
+            <form class="search" action="#">
               <input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
               <i class="fa-solid fa-magnifying-glass"></i>
             </form>
@@ -66,7 +66,7 @@
           </a>
           <!-- search bar -->
           <div class="search-input">
-            <form id="search" action="#">
+            <form class="search" action="#">
               <input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
               <i class="fa-solid fa-magnifying-glass"></i>
             </form>
@@ -109,7 +109,7 @@
           </a>
           <!-- search bar -->
           <div class="search-input">
-            <form id="search" action="#">
+            <form class="search" action="#">
               <input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
               <i class="fa-solid fa-magnifying-glass"></i>
             </form>
@@ -152,7 +152,7 @@
           </a>
           <!-- search bar -->
           <div class="search-input">
-            <form id="search" action="#">
+            <form class="search" action="#">
               <input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
               <i class="fa-solid fa-magnifying-glass"></i>
             </form>
@@ -173,7 +173,7 @@
             </li>
             <!-- login or go to profile logic -->
             <li th:if="${userDetails}">
-              <a class="active" href="/profile"><span class="pe-2" th:text="${credentials.username}"></span><img src="/images/profile-header-unlock.svg" alt=""/></a>
+              <a class="active" href="/logout">Logout <img src="/images/profile-header-unlock.svg" alt=""/></a>
             </li>
             <li th:unless="${userDetails}">
               <a class="active" href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
@@ -285,3 +285,4 @@
     </div>
   </div>
 </div>
+

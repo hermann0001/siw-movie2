@@ -44,4 +44,8 @@ public class ReviewService {
     public Review findReview(Long reviewId) {
         return this.reviewRepository.findById(reviewId).orElse(null);
     }
+
+    public Set<Review> findAllReviewsWrittenByUser(User loggedUser) {
+        return this.reviewRepository.findAllByAuthor(loggedUser);
+    }
 }

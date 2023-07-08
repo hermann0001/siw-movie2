@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.controller.session.SessionData;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.UserValidator;
+import it.uniroma3.siw.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,8 @@ public class AuthenticationController {
 	private UserValidator userValidator;
 	@Autowired
 	private CredentialsValidator credentialsValidator;
+	@Autowired
+	private ReviewService reviewService;
 	
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
@@ -90,7 +93,9 @@ public class AuthenticationController {
 		if(this.sessionData.getLoggedUser() == null)
 			return "redirect:/login";
 
-		model.addAttribute("userProfile", this.userService.getUser(this.sessionData.getLoggedUser().getId()));
+		User loggedUser = this.userService.getUser(this.sessionData.getLoggedUser().getId());
+		model.addAttribute("userReviews", this.reviewService.findAllReviewsWrittenByUser(loggedUser));
+		model.addAttribute("userProfile", loggedUser);
 		return "profile";
 	}
 }

@@ -1,28 +1,6 @@
 /*
-
-TemplateMo 579 Cyborg Gaming
-
-https://templatemo.com/tm-579-cyborg-gaming
-
-*/
-
-/* ---------------------------------------------
-Table of contents
-------------------------------------------------
-01. font & reset css
-02. reset
-03. global styles
-04. header
-05. banner
-06. features
-07. testimonials
-08. contact
-09. footer
-
---------------------------------------------- */
-/*
 ---------------------------------------------
-font & reset css
+font
 ---------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
@@ -36,6 +14,81 @@ reset
   background: #20c997;
   color: #fff;
 }
+footer p{
+  text-align: center;
+  padding: 30px 0px;
+  color: #fff;
+  font-weight: 300;
+}
+
+footer p a{
+  color: #fff;
+  transition: all .3s;
+}
+
+footer p a:hover {
+  color: #20c997;
+}
+
+p{
+  font-size: 15px;
+  line-height: 30px;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+img{
+  width: 100%;
+  overflow:hidden;
+}
+
+ul{
+  margin-bottom: 0px;
+}
+
+ul, li{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+header, nav, section, article, aside, footer, hgroup {
+  display: block;
+}
+
+header, nav{
+  display:block;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #fff;
+  font-weight: 700;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+a {
+  color: #CCC;
+  text-decoration: none !important;
+}
+
+html, body{
+  background: #1f2122;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, figure, header, nav, section, article, aside, footer, figcaption {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
 /*
 -------------------------
 header area style
@@ -70,12 +123,12 @@ header area style
   width: 240px;
 }
 
-.header-area .main-nav #search{
+.header-area .main-nav .search{
   position: relative;
   margin-top: 5px;
 }
 
-.header-area .main-nav #search input{
+.header-area .main-nav .search input{
   background-color: #27292a;
   height: 46px;
   border-radius: 23px;
@@ -85,7 +138,7 @@ header area style
   padding: 0px 15px 0px 45px;
 }
 
-.header-area .main-nav #search i{
+.header-area .main-nav .search i{
   position:absolute;
   color: #666;
   left: 20px;
@@ -269,7 +322,7 @@ body .page-content{
 }
 
 .form .valid{
-  color: darkred;
+  color: #dc3545;
 }
 
 #addDirectorForm{
@@ -361,6 +414,10 @@ body .page-content{
 .collapse, .collapsing {
   background-color: #1f2122;
   border-radius: 23px;
+}
+
+.page-content .cancella a:hover{
+  color: #dc3545;
 }
 
 
@@ -460,79 +517,4 @@ body .page-content{
   border-radius: 23px;
   border:none;
   background-color: #1f2122;
-}
-
-footer p{
-  text-align: center;
-  padding: 30px 0px;
-  color: #fff;
-  font-weight: 300;
-}
-
-footer p a{
-  color: #fff;
-  transition: all .3s;
-}
-
-footer p a:hover {
-  color: #20c997;
-}
-
-p{
-  font-size: 15px;
-  line-height: 30px;
-  color: #fff;
-  margin-bottom: 0;
-}
-
-img{
-  width: 100%;
-  overflow:hidden;
-}
-
-ul{
-  margin-bottom: 0px;
-}
-
-ul, li{
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-header, nav, section, article, aside, footer, hgroup {
-  display: block;
-}
-
-header, nav{
-  display:block;
-}
-
-h1, h2, h3, h4, h5, h6, p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  color: #fff;
-  font-weight: 700;
-}
-
-*{
-  box-sizing: border-box;
-}
-
-a {
-  color: #CCC;
-  text-decoration: none !important;
-}
-
-html, body{
-  background: #1f2122;
-  font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, figure, header, nav, section, article, aside, footer, figcaption {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
 }
