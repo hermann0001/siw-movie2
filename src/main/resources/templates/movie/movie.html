@@ -143,7 +143,7 @@
 									<div class="col-4 form-group">
 										<label for="reviewTitle" class="form-label">Titolo</label>
 										<input type="text" id="reviewTitle" class="form-control" th:field="*{title}">
-										<span class="mt-1" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+										<p class="form-text valid mt-1" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
 									</div>
 									<div class="col-4 form-group my-3">
 										<label class="form-label">Voto</label>
@@ -163,7 +163,7 @@
 											  <label for="rating-0">0</label>
 											</span>
 										</fieldset>
-										<span class="mt-1 valid" th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></span>
+										<p class="form-text valid mt-1" th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></p>
 									</div>
 									<div class="form-group mt-3">
 										<label for="reviewContent">Testo</label>

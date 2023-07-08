@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
@@ -22,12 +25,15 @@ public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	@NotNull
+	@NotBlank
 	private String name;
-	@NotNull
+	@NotBlank
 	private String surname;
+	@NotNull
+	@Past
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
+	@PastOrPresent
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfDeath;
 	private String picture;
@@ -67,11 +73,11 @@ public class Artist {
 		this.surname = surname;
 	}
 	
-	public LocalDate getDateOfBirth() {
+	public @NotNull LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 	
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(@NotNull LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	

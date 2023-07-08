@@ -27,17 +27,6 @@ public class ReviewController {
     @Autowired
     MovieService movieService;
 
-    @PostMapping(value = "/movie/addNewReviewToMovie/{movieId}")
-    public String newReview(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult,
-                            @PathVariable("movieId") Long movieId, Model model){
-        this.reviewValidator.validate(review, bindingResult);
-        if(!bindingResult.hasErrors()) {
-            this.reviewService.saveReview(review, this.movieService.findMovie(movieId), this.sessionData.getLoggedUser());
-            model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));
-        }
-        return "redirect:/movie/" + movieId;
-    }
-
     @GetMapping(value = "/admin/removeReview/{reviewId}")
     public String adminRemoveReview(@PathVariable("reviewId")Long reviewId, Model model){
         Review review = this.reviewService.findReview(reviewId);

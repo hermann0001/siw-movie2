@@ -190,6 +190,13 @@ body .page-content{
   color: #20c997;
 }
 
+.page-content .btn-outline-danger a:hover{
+  color: #fff;
+}
+.page-content .btn-outline-danger a{
+  color: #dc3545;
+}
+
 .page-content .review{
   background-color: #1f2122;
   border-radius: 23px;
@@ -314,8 +321,6 @@ body .page-content{
   font-size: 45px;
   font-weight: 400;
 }
-
-
 
 .page-content h2{
   text-align: center;
