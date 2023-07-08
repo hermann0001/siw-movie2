@@ -40,7 +40,7 @@ public class ArtistController {
 
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("artist", this.artistService.find(id));
+		model.addAttribute("artist", this.artistService.findArtist(id));
 		return "artist/artist";
 	}
 
@@ -58,7 +58,7 @@ public class ArtistController {
 
 	@GetMapping(value = "/admin/formUpdateArtist/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("artist", this.artistService.find(id));
+		model.addAttribute("artist", this.artistService.findArtist(id));
 		model.addAttribute("directedMoviesList", this.movieService.findMoviesNotDirectedByArtist(id));
 		model.addAttribute("starredMoviesList", this.movieService.findMoviesNotStarredByArtist(id));
 
@@ -87,5 +87,11 @@ public class ArtistController {
 	public String addMovieToDirectedMovies(@PathVariable("actorId") Long idA, @PathVariable("movieId") Long idM) {
 		this.movieService.setDirectorToMovie(idM, idA);
 		return "redirect:/admin/formUpdateArtist/" + idA;
+	}
+
+	@GetMapping(value = "/admin/removeArtist/{id}")
+	public String removeArtist(@PathVariable("id")Long id){
+		this.artistService.deleteArtist(id);
+		return "redirect:/admin/manageArtists";
 	}
 }

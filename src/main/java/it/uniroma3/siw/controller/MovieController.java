@@ -140,7 +140,7 @@ public class MovieController {
 	}
 
 	@GetMapping(value = "/admin/removeMovie/{movieId}")
-	public String removeMovie(@PathVariable("movieId")Long id, Model model){
+	public String removeMovie(@PathVariable("movieId")Long id){
 		this.movieService.deleteMovie(id);
 		return "redirect:/admin/manageMovies";
 	}

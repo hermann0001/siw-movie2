@@ -2,14 +2,10 @@ package it.uniroma3.siw.service;
 
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
-import it.uniroma3.siw.model.Review;
-import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
 
 @Service
 public class MovieService {
@@ -35,6 +31,7 @@ public class MovieService {
         return this.movieRepository.findAll();
     }
 
+    @Transactional
     public boolean exists(Movie movie){
         return movie.getTitle() != null && this.movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear());
     }
@@ -50,7 +47,7 @@ public class MovieService {
     @Transactional
     public void removeActorFromMovie(Long movieId, Long actorId) {
         Movie movie = this.findMovie(movieId);
-        Artist actor = this.artistService.find(actorId);
+        Artist actor = this.artistService.findArtist(actorId);
         movie.getActors().remove(actor);
         actor.getStarredMovies().remove(movie);
         this.saveMovie(movie);
@@ -65,7 +62,7 @@ public class MovieService {
     @Transactional
     public void addActorToMovie(Long movieId, Long actorId) {
         Movie movie = this.findMovie(movieId);
-        Artist actor = this.artistService.find(actorId);
+        Artist actor = this.artistService.findArtist(actorId);
         actor.getStarredMovies().add(movie);
         movie.getActors().add(actor);
         this.saveMovie(movie);
@@ -83,7 +80,7 @@ public class MovieService {
     @Transactional
     public void setDirectorToMovie(Long movieId, Long directorId) {
         Movie movie = this.findMovie(movieId);
-        Artist director = this.artistService.find(directorId);
+        Artist director = this.artistService.findArtist(directorId);
         movie.setDirector(director);
         director.getDirectedMovies().add(movie);
         this.saveMovie(movie);
