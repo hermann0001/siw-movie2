@@ -1,9 +1,8 @@
 package it.uniroma3.siw.controller;
 
-import java.util.Set;
 
+import it.uniroma3.siw.controller.session.SessionData;
 import it.uniroma3.siw.model.Review;
-import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
 import it.uniroma3.siw.service.ReviewService;
@@ -15,9 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
-import it.uniroma3.siw.model.Artist;
+import it.uniroma3.siw.controller.validator.ReviewValidator;
+
 import it.uniroma3.siw.model.Movie;
 import jakarta.validation.Valid;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MovieController {
@@ -89,7 +90,6 @@ public class MovieController {
 		model.addAttribute("reviewAuthorSet",  this.userService.getAllMovieReviewsAuthors(id));
 		return "/movie/movie";
 	}
-
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
 		model.addAttribute("movies", this.movieService.getAllMovies());
@@ -133,7 +133,10 @@ public class MovieController {
 			this.reviewService.saveReview(review, this.movieService.findMovie(movieId), this.sessionData.getLoggedUser());
 			model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));
 		}
-		return getMovie(movieId, model);
+		model.addAttribute("movie", this.movieService.findMovie(movieId));
+		model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(movieId));
+		model.addAttribute("reviewAuthorSet",  this.userService.getAllMovieReviewsAuthors(movieId));
+		return "/movie/movie";
 	}
 
 	@GetMapping(value = "/admin/removeMovie/{movieId}")
