@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<!-- TODO: rivedere la validazione + oauth -->
+	<!-- TODO: oauth -->
 	<div class="container-md px-4">
 		<div class="form">
 			<div class="row gx-4 align-items-center">
@@ -38,7 +38,7 @@
 							<span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-key"></i></span>
 							<input name="password" type="password" class="form-control" aria-label="Password" aria-describedby="basic-addon2">
 						</div>
-						<span class="form-text valid" th:if="${param.error != null}">Username o password errati</span>
+						<span class="form-text valid mt-1" th:if="${param.error != null}">Username o password errati</span>
 
 						<div class="main-button py-3">
 							<button type="submit">Login</button>
@@ -52,21 +52,8 @@
 		</div>
 	</div>
 
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<p>
-						Copyright © 2023
-						<a href="www.github.com/hermann0001">Hermann Tamilia</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<footer th:replace="~{fragments/sections.html :: footer}"></footer>
 	<!-- Bootstrap js-->
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-
 </body>
-
 </html>

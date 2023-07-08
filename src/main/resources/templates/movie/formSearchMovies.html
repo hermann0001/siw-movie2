@@ -11,15 +11,7 @@
 </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${user}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+	<header th:replace="~{fragments/sections.html :: header-film}"></header>
 
 	<div class="center">
 		<a href="/static"><img src="/images/logo-siw.png" width="50%"/></a>
@@ -30,6 +22,9 @@
 			<div><input type="submit" /></div>
 		</form>
 	</div>
-</body>
 
+	<footer th:replace="~{fragments/sections.html :: footer}"></footer>
+	<!-- Bootstrap js -->
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>

@@ -19,89 +19,80 @@
 </head>
 
 <body>
-<!-- ***** Header Area ***** -->
-<header class="header-area">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<nav class="main-nav">
-					<!-- logo -->
-					<a href="/" class="logo">
-						<img src="/images/logo.png" alt="logo">
-					</a>
-					<!-- search bar -->
-					<div class="search-input">
-						<form id="search" action="#">
-							<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</form>
-					</div>
-					<!-- menu bar -->
-					<ul class="nav">
-						<li>
-							<a href="/">Home</a>
-						</li>
-						<li>
-							<a href="/movie" class="active"> Film </a>
-						</li>
-						<li>
-							<a href="/artist"> Artisti </a>
-						</li>
-						<li>
-							<a href="#"> Recensioni </a>
-						</li>
-						<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
-						<li th:if="${userDetails}">
-							<a href="/profile" th:text="${credentials.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
-						</li>
-						<li th:unless="${userDetails}">
-							<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
-						</li>
+	<!-- ***** Header Area ***** -->
+	<header class="header-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav class="main-nav">
+						<!-- logo -->
+						<a href="/" class="logo">
+							<img src="/images/logo.png" alt="logo">
+						</a>
+						<!-- search bar -->
+						<div class="search-input">
+							<form id="search" action="#">
+								<input type="text" placeholder="Type Something" id="searchText" name="searchKeyword">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</form>
+						</div>
+						<!-- menu bar -->
+						<ul class="nav">
+							<li>
+								<a href="/">Home</a>
+							</li>
+							<li>
+								<a href="/movie" class="active"> Film </a>
+							</li>
+							<li>
+								<a href="/artist"> Artisti </a>
+							</li>
+							<li>
+								<a href="#"> Recensioni </a>
+							</li>
+							<!-- login or go to profile logic --> <!--TODO: non funziona se loggato-->
+							<li th:if="${userDetails}">
+								<a href="/profile" th:text="${credentials.username}">Profilo <img src="/images/profile-header-unlock.svg" alt=""></a>
+							</li>
+							<li th:unless="${userDetails}">
+								<a href="/login">Login <img src="/images/profile-header-lock.svg" alt=""></a>
+							</li>
 
-					</ul>
-				</nav>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
-	</div>
-</header>
-<!-- Header Area End -->
+	</header>
+	<!-- Header Area End -->
 
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="page-content">
-				<!-- se non ci sono film nel sistema mostra questa sezione -->
-				<div class="row" th:if="${movies==null || movies.isEmpty()}">
-					<div class="col-lg-12">
-						<div class="row gy-5">
-							<div class="col-12">
-								<h2>Non ci sono film nel sistema!</h2>
-							</div>
-							<div class="col-12 d-flex justify-content-center">
-								<img class="notFound" src="/images/jeffrey_lebowski.gif" alt="nofilmhere"/>
-							</div>
-						</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-content">
+					<!-- se non ci sono film nel sistema mostra questa sezione -->
+					<div class="row" th:if="${movies==null || movies.isEmpty()}">
+						<div th:replace="~{fragments/errors.html :: lebowski}"></div>
 					</div>
-
-				</div>
-				<!-- se sono presenti dei film si mostra questa sezione -->
-				<div class="film-card" th:unless="${movies==null || movies.isEmpty()}">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="heading-section">
-								<h4>Scegli il <em>film</em> da modificare</h4>
-							</div>
-							<div class="row row-cols-1 row-cols-md-3 g-4">
-								<div th:each="movie : ${movies}" class="col">
-									<a th:href="@{'/admin/formUpdateMovie' + '/' + ${movie.id}}">
-										<div class="card" style="width: 18rem;">
-											<img src="https://picsum.photos/200/200" class="card-img-top" alt="film-image"/>
-											<div class="card-body">
-												<h5 class="card-title" th:text="${movie.title}">Up!</h5>
-												<p class="card-text" th:text="' (' + ${movie.year} + ' )'">(2000)</p>
+					<!-- se sono presenti dei film si mostra questa sezione -->
+					<div class="film-card" th:unless="${movies==null || movies.isEmpty()}">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="heading-section">
+									<h4>Scegli il <em>film</em> da modificare</h4>
+								</div>
+								<div class="row row-cols-1 row-cols-md-3 g-4">
+									<div th:each="movie : ${movies}" class="col">
+										<a th:href="@{'/admin/formUpdateMovie' + '/' + ${movie.id}}">
+											<div class="card" style="width: 18rem;">
+												<img src="https://picsum.photos/200/200" class="card-img-top" alt="film-image"/>
+												<div class="card-body">
+													<h5 class="card-title" th:text="${movie.title}">Up!</h5>
+													<p class="card-text" th:text="' (' + ${movie.year} + ' )'">(2000)</p>
+												</div>
 											</div>
-										</div>
-									</a>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -110,19 +101,9 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<p>
-					Copyright © 2023
-					<a href="www.github.com/hermann0001">Hermann Tamilia</a>
-				</p>
-			</div>
-		</div>
-	</div>
-</footer>
+	<footer th:replace="~{fragments/sections.html :: footer}"></footer>
+	<!-- Bootstrap js -->
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
