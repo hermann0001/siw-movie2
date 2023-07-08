@@ -89,5 +89,18 @@ public class MovieService {
         this.saveMovie(movie);
         this.artistService.saveArtist(director);
     }
+    @Transactional
+    public void deleteMovie(Long id) {
+        Movie movie = this.findMovie(id);
+        Artist director = movie.getDirector();
+        if(director != null)
+            director.getDirectedMovies().remove(movie);      //rimuovo l'associazione con il regista
 
+        for(Artist a : movie.getActors())
+            a.getStarredMovies().remove(movie);             //rimuovo il film da ogni collezione di movie in actor
+
+        movie.getActors().clear();                          //svuoto la collezione di attori nel film
+
+        this.movieRepository.delete(movie);
+    }
 }

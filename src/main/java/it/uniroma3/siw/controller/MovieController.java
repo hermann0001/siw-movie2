@@ -120,6 +120,12 @@ public class MovieController {
 		this.movieService.updateTitle(title, id);
 		return "redirect:/admin/formUpdateMovie/" + id;
 	}
+
+	@GetMapping(value = "/admin/removeMovie/{movieId}")
+	public String removeMovie(@PathVariable("movieId")Long id, Model model){
+		this.movieService.deleteMovie(id);
+		return "redirect:/admin/manageMovies";
+	}
 }
 
 
