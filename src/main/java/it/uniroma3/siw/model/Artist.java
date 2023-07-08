@@ -80,7 +80,15 @@ public class Artist {
 	public void setDateOfBirth(@NotNull LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+
+	public LocalDate getDateOfDeath() {
+		return dateOfDeath;
+	}
+
+	public void setDateOfDeath(LocalDate dateOfDeath) {
+		this.dateOfDeath = dateOfDeath;
+	}
+
 	public String getPicture() {
 		return picture;
 	}

@@ -1,10 +1,14 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.controller.validator.ArtistValidator;
+import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +19,11 @@ import it.uniroma3.siw.model.Artist;
 @Controller
 public class ArtistController {
 	 @Autowired
-	private ArtistService artistService;
+	 private ArtistService artistService;
 	 @Autowired
-	private MovieService movieService;
+	 private MovieService movieService;
+	 @Autowired
+	 private ArtistValidator artistValidator;
 
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
@@ -25,17 +31,15 @@ public class ArtistController {
 		return "admin/formNewArtist";
 	}
 
-	//TODO: aggiungere l'artist validator
 	@PostMapping("/admin/artist")
-	public String newArtist(@ModelAttribute("artist") Artist artist, Model model) {
-		if (!artistService.exists(artist)) {
+	public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model) {
+		this.artistValidator.validate(artist, bindingResult);
+		if (!bindingResult.hasErrors()) {
 			this.artistService.saveArtist(artist);
 			model.addAttribute("artist", artist);
-			return "artist/artist";
-		} else {
-			model.addAttribute("messaggioErrore", "Questo artista esiste già");
-			return "admin/formNewArtist";
+			return "redirect:/admin/formUpdateArtist/" + artist.getId();
 		}
+		return "admin/formNewArtist";
 	}
 
 	@GetMapping("/artist/{id}")

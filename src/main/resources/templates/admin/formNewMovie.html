@@ -77,15 +77,15 @@
 								<div class="row mb-3">
 									<div class="col-10">
 										<label for="formTitle" class="form-label">Titolo:</label>
-										<input type="text" th:field="${movie.title}" class="form-control" id="formTitle"/>
+										<input type="text" th:field="*{title}" class="form-control" id="formTitle"/>
+										<p class="mt-1 form-text valid" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
 									</div>
-									<span class="form-text valid" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
 								</div>
 
 								<div class="row mb-3">
 									<div class="col-3">
 										<label class="form-label">Anno:</label>
-										<select class="form-select" aria-label=".form-select-sm year" th:field="${movie.year}">
+										<select class="form-select" aria-label=".form-select-sm year" th:field="*{year}">
 											<option value="">year</option>
 											<option value="1900">1900</option>
 											<option value="1901">1901</option>
@@ -212,12 +212,12 @@
 											<option value="2022">2022</option>
 											<option value="2023">2023</option>
 										</select>
+										<p class="form-text valid" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></p>
 									</div>
-									<span class="form-text valid" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
 								</div>
 								<div class="col-10 mb-3">
 									<label for="formFile" class="form-label">Locandina:</label>
-									<input class="form-control" type="file" id="formFile" th:field="${movie.image}" />
+									<input class="form-control" type="file" id="formFile" th:field="*{image}" />
 								</div>
 
 								<!-- TODO: possibilità di inserire piu foto e di mettere direttamente attori e regista -->
