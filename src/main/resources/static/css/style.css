@@ -504,6 +504,10 @@ body .page-content{
   color: #fff;
 }
 
+.film-card .card-img img{
+  height: 430px;
+}
+
 /* overriding bootstrap list*/
 .list-group-flush, .list-group-item{
   background-color: #27292a;

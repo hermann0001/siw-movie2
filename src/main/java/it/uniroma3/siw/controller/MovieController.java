@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 
 import it.uniroma3.siw.controller.session.SessionData;
+import it.uniroma3.siw.controller.validator.ImageValidator;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
@@ -18,7 +19,11 @@ import it.uniroma3.siw.controller.validator.ReviewValidator;
 
 import it.uniroma3.siw.model.Movie;
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 public class MovieController {
@@ -36,6 +41,8 @@ public class MovieController {
 	private UserService userService;
 	@Autowired
 	private SessionData sessionData;
+	@Autowired
+	private ImageValidator imageValidator;
 
 
 	@GetMapping(value = "/admin/formNewMovie")
@@ -44,15 +51,20 @@ public class MovieController {
 		return "admin/formNewMovie";
 	}
 	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
-		this.movieValidator.validate(movie, bindingResult);
-		if (!bindingResult.hasErrors()) {
-			this.movieService.saveMovie(movie);
-			model.addAttribute("movie", movie);
-			return "redirect:/admin/formUpdateMovie/" + movie.getId();
-		} else {
-			return "admin/formNewMovie";
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult movieBindingResult,
+						   @Valid @ModelAttribute MultipartFile image, BindingResult fileBindingResult, Model model, RedirectAttributes redirectAttributes){
+		this.movieValidator.validate(movie, movieBindingResult);
+		this.imageValidator.validate(image, fileBindingResult);
+		if (!movieBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
+			try{
+				model.addAttribute("movie", this.movieService.saveMovie(movie, image));
+				return "redirect:/admin/formUpdateMovie/" + movie.getId();
+			} catch (IOException e){
+				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload");
+				return "redirect:/admin/formNewMovie";
+			}
 		}
+		return "admin/formNewMovie";
 	}
 
 	@GetMapping(value = "/admin/formUpdateMovie/{id}")

@@ -42,7 +42,12 @@
 									<div th:each="movie : ${movies}" class="col">
 										<a th:href="@{'/admin/formUpdateMovie' + '/' + ${movie.id}}">
 											<div class="card" style="width: 18rem;">
-												<img src="https://picsum.photos/200/200" class="card-img-top" alt="film-image"/>
+												<div th:if="${movie.image}">
+													<img src="" th:src="@{'/files/' + ${movie.image.id}}" alt="film_image"/>
+												</div>
+												<div th:unless="${movie.image}">
+													<img src="https://picsum.photos/200/300" />
+												</div>
 												<div class="card-body">
 													<h5 class="card-title" th:text="${movie.title}">Up!</h5>
 													<p class="card-text" th:text="' (' + ${movie.year} + ' )'">(2000)</p>

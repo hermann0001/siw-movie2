@@ -6,6 +6,9 @@ import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class MovieService {
@@ -13,9 +16,17 @@ public class MovieService {
     private MovieRepository movieRepository;
     @Autowired
     private ArtistService artistService;
+    @Autowired
+    private ImageService imageService;
 
     @Transactional
-    public Movie saveMovie(Movie movie) {
+    public Movie saveMovie(Movie movie, MultipartFile image) throws IOException {
+        this.addMovieImage(movie, image);
+        return this.movieRepository.save(movie);
+    }
+
+    @Transactional
+    public Movie saveMovie(Movie movie){
         return this.movieRepository.save(movie);
     }
 
@@ -99,5 +110,10 @@ public class MovieService {
         movie.getActors().clear();                          //svuoto la collezione di attori nel film
 
         this.movieRepository.delete(movie);
+    }
+    @Transactional
+    public void addMovieImage(Movie movie, MultipartFile image) throws IOException {
+        movie.setImage(this.imageService.save(image));
+        this.saveMovie(movie);
     }
 }

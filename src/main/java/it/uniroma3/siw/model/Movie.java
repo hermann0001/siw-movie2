@@ -23,7 +23,9 @@ public class Movie {
     @Max(2023)
     private Integer year;
 
-    private String image;
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    private Image image;
 
     @Valid
     @ManyToOne
@@ -63,11 +65,11 @@ public class Movie {
         this.year = year;
     }
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Image image) {
         this.image = image;
     }
 

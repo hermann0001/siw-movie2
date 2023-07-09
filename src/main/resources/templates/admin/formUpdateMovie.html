@@ -19,7 +19,7 @@
 </head>
 <body>
 	<!-- ***** Header Area ***** -->
-	<header th:replace="~{fragments/sections.html :: header-movie}"></header>
+	<header th:replace="~{fragments/sections.html :: header-film}"></header>
 	<!-- Header Area End -->
 
 	<div class="container">
@@ -30,7 +30,12 @@
 					<h2>Aggiorna film</h2>
 					<div class="row mt-5">
 						<div class="col-lg-6">
-							<img src="https://picsum.photos/200/300" alt="film_image"/>
+							<div th:if="${movie.image}">
+								<img src="" th:src="@{'/files/' + ${movie.image.id}}" alt="film_image"/>
+							</div>
+							<div th:unless="${movie.image}">
+								<img src="https://picsum.photos/200/300" />
+							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="row my-4">

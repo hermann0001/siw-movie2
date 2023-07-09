@@ -6,10 +6,10 @@ import it.uniroma3.siw.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.Set;
-
+@Repository
 public interface ReviewRepository extends CrudRepository<Review, Long> {
     boolean existsByMovieAndAuthor(Movie movie, User author);
     Set<Review> findAllByAuthor(User author);

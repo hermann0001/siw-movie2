@@ -29,7 +29,7 @@
 				<div class="form">
 					<div class="row g-4 align-item-center">
 						<div class="col-md-6 p-3">
-							<form th:action="@{/admin/movie}" method="POST" th:object="${movie}">
+							<form th:action="@{/admin/movie}" method="POST" th:object="${movie}" enctype="multipart/form-data">
 								<h1> Aggiungi un film!</h1>
 								<div class="row mb-3">
 									<div class="col-10">
@@ -174,11 +174,15 @@
 								</div>
 								<div class="col-10 mb-3">
 									<label for="formFile" class="form-label">Locandina:</label>
-									<input class="form-control" type="file" id="formFile" th:field="*{image}" />
+									<input class="form-control" type="file" id="formFile" name="image"/>
+									<p class="form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
 								</div>
 
 								<!-- TODO: possibilità di inserire piu foto e di mettere direttamente attori e regista -->
-								<div th:replace="~{fragments/errors.html :: fieldGlobalError}"></div>
+								<div class="mt-1" th:if="${#fields.hasGlobalErrors()}" th:fragment="fieldGlobalError">
+									<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+									<p class="form-text valid" th:if="${#fields.hasErrors('image.image')}" th:errors="${image.image}"></p> <!-- TODO: ?? RIGUARDARE-->
+								</div>
 								<div class="main-button py-3">
 									<button type="submit">Conferma</button>
 								</div>
@@ -192,18 +196,8 @@
 			</div>
 		</div>
 	</div>
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<p>
-						Copyright © 2023
-						<a href="www.github.com/hermann0001">Hermann Tamilia</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+
+	<footer th:replace="~{fragments/sections.html :: footer}"></footer>
 	<!-- Bootstrap js-->
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
