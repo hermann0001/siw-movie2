@@ -23,9 +23,8 @@ public class Movie {
     @Max(2023)
     private Integer year;
 
-    @Valid
     @OneToOne(cascade = CascadeType.ALL)
-    private Image image;
+    private Image file;
 
     @Valid
     @ManyToOne
@@ -65,12 +64,12 @@ public class Movie {
         this.year = year;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getFile() {
+        return file;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setFile(Image image) {
+        this.file = image;
     }
 
     public Artist getDirector() {

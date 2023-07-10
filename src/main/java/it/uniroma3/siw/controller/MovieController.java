@@ -52,12 +52,12 @@ public class MovieController {
 	}
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult movieBindingResult,
-						   @Valid @ModelAttribute MultipartFile image, BindingResult fileBindingResult, Model model, RedirectAttributes redirectAttributes){
+						   @Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult, Model model, RedirectAttributes redirectAttributes){
 		this.movieValidator.validate(movie, movieBindingResult);
-		this.imageValidator.validate(image, fileBindingResult);
+		this.imageValidator.validate(file, fileBindingResult);
 		if (!movieBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
 			try{
-				model.addAttribute("movie", this.movieService.saveMovie(movie, image));
+				model.addAttribute("movie", this.movieService.saveMovie(movie, file));
 				return "redirect:/admin/formUpdateMovie/" + movie.getId();
 			} catch (IOException e){
 				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload");

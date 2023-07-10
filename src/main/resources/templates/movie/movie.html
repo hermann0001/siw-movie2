@@ -27,10 +27,10 @@
 						<div class="row">
 							<a class="fs-1" th:href="@{/movie}"><i class="fa-solid fa-arrow-left"></i></a>
 							<div class="col-lg-6">
-								<div th:if="${movie.image}">
-									<img src="" th:src="@{'/files/' + ${movie.image.id}}" alt="film_image"/>
+								<div th:if="${movie.file}">
+									<img src="" th:src="@{'/files/' + ${movie.file.id}}" alt="film_image"/>
 								</div>
-								<div th:unless="${movie.image}">
+								<div th:unless="${movie.file}">
 									<img src="https://picsum.photos/200/300" alt="film_image"/>
 								</div>
 							</div>

@@ -113,7 +113,7 @@ public class MovieService {
     }
     @Transactional
     public void addMovieImage(Movie movie, MultipartFile image) throws IOException {
-        movie.setImage(this.imageService.save(image));
+        movie.setFile(this.imageService.save(image));
         this.saveMovie(movie);
     }
 }
