@@ -22,7 +22,7 @@ public class ImageValidator implements Validator {
         MultipartFile image = (MultipartFile) target;
         String imageType = image.getContentType();
         if(imageType != null && !permittedTypes.contains(imageType)){
-            errors.rejectValue("file", "file.invalidFormat");
+            errors.reject("file.InvalidFormat");
         }
     }
 }
