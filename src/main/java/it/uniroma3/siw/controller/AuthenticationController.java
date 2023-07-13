@@ -58,7 +58,7 @@ public class AuthenticationController {
 
 	@GetMapping(value = "/") 
 	public String index(Model model) {
-		model.addAttribute("movieImages", this.movieService.getAllMovieImages());
+		model.addAttribute("movieImages", this.movieService.getLast5movie());
 		model.addAttribute("artistImages", this.artistService.getAllArtistImages());
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {

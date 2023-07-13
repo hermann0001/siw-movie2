@@ -53,9 +53,7 @@
 								<input type="text" placeholder="youremail@example.com" class="form-control" th:field="*{email}" id="formEmail" />
 								<p class="form-text mt-1 valid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 							</div>
-							<div class="mb-2 mt-1" th:if="${#fields.hasGlobalErrors()}">
-								<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-							</div>
+							<div th:replace="~{fragments/errors.html :: fieldGlobalError}"></div>
 						</div>
 						<div class="row" th:object="${userCredentials}">
 							<div class="form-group col-md-6">

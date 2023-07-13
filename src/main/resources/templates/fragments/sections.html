@@ -242,10 +242,10 @@
   <div th:each="movie : ${movies}" class="col">
     <a th:href="@{'/movie/' + ${movie.id}}">
       <div class="card" style="width: 18rem;">
-        <div class="card-img" th:if="${movie.file}">
-          <img src="" th:src="@{'/files/' + ${movie.file.id}}" alt="film_image"/>
+        <div class="card-img" th:if="${movie.picture}">
+          <img src="" th:src="@{'/files/' + ${movie.picture.id}}" alt="film_image"/>
         </div>
-        <div class="card-img" th:unless="${movie.file}">
+        <div class="card-img" th:unless="${movie.picture}">
           <img src="https://picsum.photos/200/300" alt="film_image"/>
         </div>
         <div class="card-body">

@@ -42,8 +42,12 @@
 									<div th:each="artist : ${artists}" class="col">
 										<a th:href="@{'/artist/' + ${artist.id}}">
 											<div class="card" style="width: 18rem;">
-												<img src="https://picsum.photos/200/200" class="card-img-top" alt="artist-image"/>
-												<div class="card-body">
+												<div class="card-img" th:if="${artist.picture}">
+													<img src="" th:src="@{'/files/' + ${artist.picture.id}}" alt="film_image"/>
+												</div>
+												<div class="card-img" th:unless="${artist.picture}">
+													<img src="https://picsum.photos/200/300" alt="film_image"/>
+												</div>												<div class="card-body">
 													<h5 class="card-title" th:text="${artist.name} + ' ' + ${artist.surname}">Stanley Kubrick</h5>
 												</div>
 											</div>

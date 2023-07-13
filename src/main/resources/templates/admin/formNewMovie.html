@@ -178,7 +178,9 @@
 									<p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
 								</div>
 
-								<div th:replace="~{fragments/errors.html :: fieldGlobalError}"></div>
+								<div class="mt-1" th:if="${#fields.hasGlobalErrors()}">
+									<p class="form-text valid" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+								</div>
 								<div class="main-button py-3">
 									<button type="submit">Conferma</button>
 								</div>

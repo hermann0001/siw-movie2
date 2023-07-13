@@ -24,7 +24,7 @@ public class MovieService {
 
     @Transactional
     public Movie saveMovie(Movie movie, MultipartFile image) throws IOException {
-        this.addMovieImage(movie, image);
+        if(!image.isEmpty()) this.addMovieImage(movie, image);
         return this.movieRepository.save(movie);
     }
 
@@ -113,7 +113,7 @@ public class MovieService {
     }
     @Transactional
     public void addMovieImage(Movie movie, MultipartFile image) throws IOException {
-        movie.setFile(this.imageService.save(image));
+        movie.setPicture(this.imageService.save(image));
     }
     @Transactional
     public Set<Long> getAllMovieImages() {
@@ -123,5 +123,10 @@ public class MovieService {
     @Transactional
     public List<Movie> searchMovie(String movie) {
         return this.movieRepository.findByTitleContainingIgnoreCase(movie);
+    }
+
+    @Transactional
+    public Set<Long> getLast5movie() {
+        return this.movieRepository.findLast5MovieImages();
     }
 }

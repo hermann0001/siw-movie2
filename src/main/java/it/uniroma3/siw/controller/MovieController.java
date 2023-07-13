@@ -54,14 +54,14 @@ public class MovieController {
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult movieBindingResult,
 						   @Valid @ModelAttribute MultipartFile file, BindingResult fileBindingResult, Model model, RedirectAttributes redirectAttributes){
 		this.movieValidator.validate(movie, movieBindingResult);
-		this.imageValidator.validate(file, fileBindingResult);
+		if(!file.isEmpty()) this.imageValidator.validate(file, fileBindingResult);
 		if (!movieBindingResult.hasErrors() && !fileBindingResult.hasErrors()) {
 			try{
 				model.addAttribute("movie", this.movieService.saveMovie(movie, file));
 				return "redirect:/admin/formUpdateMovie/" + movie.getId();
 			} catch (IOException e){
 				redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload");
-				return "redirect:/admin/formNewMovie";
+				return "admin/formNewMovie";
 			}
 		}
 		return "admin/formNewMovie";

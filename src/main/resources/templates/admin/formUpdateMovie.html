@@ -30,14 +30,14 @@
 					<h2>Aggiorna film</h2>
 					<div class="row mt-5">
 						<div class="col-lg-6">
-							<div th:if="${movie.file}">
-								<img src="" th:src="@{'/files/' + ${movie.file.id}}" alt="film_image"/>
+							<div th:if="${movie.picture}">
+								<img src="" th:src="@{'/files/' + ${movie.picture.id}}" alt="film_image"/>
 							</div>
-							<div th:unless="${movie.file}">
+							<div th:unless="${movie.picture}">
 								<img src="https://picsum.photos/200/300" />
 							</div>
 							<div class="row mt-0 form">
-								<form th:action="@{'/admin/updateMovieImage/' + ${movie.id}}" method="POST" th:object="${movie.file}" enctype="multipart/form-data">
+								<form th:action="@{'/admin/updateMovieImage/' + ${movie.id}}" method="POST" th:object="${movie.picture}" enctype="multipart/form-data">
 									<div class="form-group my-0">
 										<label for="formImmagine">Immagine</label>
 										<input type="file" class="form-control" name="file" id="formImmagine" accept=""/>

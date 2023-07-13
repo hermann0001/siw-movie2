@@ -3,7 +3,6 @@ package it.uniroma3.siw.model;
 import java.util.*;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -21,8 +20,7 @@ public class Movie {
     @Max(2023)
     private Integer year;
     @OneToOne(cascade = CascadeType.ALL)
-    private Image file;
-    @Valid
+    private Image picture;
     @ManyToOne
     private Artist director;
     @ManyToMany
@@ -58,12 +56,12 @@ public class Movie {
         this.year = year;
     }
 
-    public Image getFile() {
-        return file;
+    public Image getPicture() {
+        return picture;
     }
 
-    public void setFile(Image image) {
-        this.file = image;
+    public void setPicture(Image image) {
+        this.picture = image;
     }
 
     public Artist getDirector() {
