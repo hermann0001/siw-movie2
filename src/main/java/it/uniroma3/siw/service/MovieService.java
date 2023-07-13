@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
@@ -31,12 +32,14 @@ public class MovieService {
     public Movie saveMovie(Movie movie){
         return this.movieRepository.save(movie);
     }
+    @Transactional
     public Movie findMovie(Long id) {
         return this.movieRepository.findById(id).orElse(null);
     }
     public Iterable<Movie> findMovies(int year){
         return this.movieRepository.findByYear(year);
     }
+    @Transactional
     public Iterable<Movie> getAllMovies() {
         return this.movieRepository.findAll();
     }
@@ -44,9 +47,11 @@ public class MovieService {
     public boolean exists(Movie movie){
         return movie.getTitle() != null && this.movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear());
     }
+    @Transactional
     public Iterable<Movie> findMoviesNotDirectedByArtist(Long id) {
         return this.movieRepository.findMoviesNotDirectedByArtist(id);
     }
+    @Transactional
     public Iterable<Movie> findMoviesNotStarredByArtist(Long id) {
         return this.movieRepository.findMoviesNotStarredByArtist(id);
     }

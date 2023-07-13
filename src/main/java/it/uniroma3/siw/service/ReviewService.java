@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class ReviewService {
 
     @Autowired
@@ -26,7 +27,7 @@ public class ReviewService {
 
         return this.reviewRepository.save(review);
     }
-
+    @Transactional
     public boolean exists(Review review) {
         return this.reviewRepository.existsByMovieAndAuthor(review.getMovie(), review.getAuthor());
     }
@@ -40,11 +41,12 @@ public class ReviewService {
     public void deleteReview(Review review) {
         this.reviewRepository.delete(review);
     }
-
+    @Transactional
     public Review findReview(Long reviewId) {
         return this.reviewRepository.findById(reviewId).orElse(null);
     }
 
+    @Transactional
     public Set<Review> findAllReviewsWrittenByUser(User loggedUser) {
         return this.reviewRepository.findAllByAuthor(loggedUser);
     }

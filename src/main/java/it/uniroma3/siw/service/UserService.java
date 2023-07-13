@@ -16,6 +16,7 @@ import java.util.*;
  * The UserService handles logic for Users.
  */
 @Service
+@Transactional
 public class UserService {
 
     @Autowired

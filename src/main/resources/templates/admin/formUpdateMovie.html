@@ -36,6 +36,18 @@
 							<div th:unless="${movie.file}">
 								<img src="https://picsum.photos/200/300" />
 							</div>
+							<div class="row mt-0 form">
+								<form th:action="@{'/admin/updateMovieImage/' + ${movie.id}}" method="POST" th:object="${movie.file}" enctype="multipart/form-data">
+									<div class="form-group my-0">
+										<label for="formImmagine">Immagine</label>
+										<input type="file" class="form-control" name="file" id="formImmagine" accept=""/>
+										<p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
+									</div>
+									<div class="main-button py-3">
+										<button type="submit">Cambia Immagine!</button>
+									</div>
+								</form>
+							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="row my-4">

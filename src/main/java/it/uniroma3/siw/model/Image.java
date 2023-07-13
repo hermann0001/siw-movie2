@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Image {
@@ -10,7 +11,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Lob @Basic(fetch=FetchType.LAZY)
+    @Lob
     private byte[] data;
     private String name;
     private String type;

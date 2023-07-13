@@ -11,6 +11,7 @@ import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.repository.CredentialsRepository;
 
 @Service
+@Transactional
 public class CredentialsService {
 
     @Autowired

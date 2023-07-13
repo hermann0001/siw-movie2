@@ -85,7 +85,7 @@ public class MovieController {
 	@GetMapping(value = "/admin/setDirectorToMovie/{directorId}/{movieId}")
 	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId) {
 		this.movieService.setDirectorToMovie(movieId, directorId);
-		return "redirect://admin/formUpdateMovie/" + movieId;
+		return "redirect:/admin/formUpdateMovie/" + movieId;
 	}
 
 	@GetMapping(value = "/admin/removeDirector/{id}")
@@ -131,6 +131,21 @@ public class MovieController {
 		this.movieService.updateTitle(title, id);
 		return "redirect:/admin/formUpdateMovie/" + id;
 	}
+
+	@PostMapping(value = "/admin/updateMovieImage/{id}")
+	public String updateImage(@PathVariable("id") Long id , @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
+		Movie movie = this.movieService.findMovie(id);
+
+		//andrebbe validata!
+		try {
+			this.movieService.saveMovie(movie, file);
+		} catch(IOException e) {
+			redirectAttributes.addFlashAttribute("fileUploadError", "errore imprevisto nell'upload!");
+		}
+
+		return "redirect:/admin/formUpdateMovie/"+id;
+	}
+
 
 	@PostMapping(value = "/movie/addNewReviewToMovie/{movieId}")
 	public String newReview(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult,

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Service
+@Transactional
 public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
