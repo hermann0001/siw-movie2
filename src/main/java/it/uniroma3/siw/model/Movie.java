@@ -14,25 +14,19 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @NotBlank
     private String title;
-
     @NotNull
     @Min(1900)
     @Max(2023)
     private Integer year;
-
     @OneToOne(cascade = CascadeType.ALL)
     private Image file;
-
     @Valid
     @ManyToOne
     private Artist director;
-
     @ManyToMany
     private Set<Artist> actors;
-
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
@@ -58,7 +52,7 @@ public class Movie {
 
     public Integer getYear() {
         return year;
-    } //TODO: ??
+    }
 
     public void setYear( Integer year) {
         this.year = year;

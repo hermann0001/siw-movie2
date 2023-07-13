@@ -36,24 +36,7 @@
 								<div class="heading-section">
 									<h4>Ecco tutti i <em>film</em> presenti nel sistema!</h4>
 								</div>
-								<div class="row row-cols-1 row-cols-md-3 g-4">
-									<div th:each="movie : ${movies}" class="col">
-										<a th:href="@{'/movie/' + ${movie.id}}">
-											<div class="card" style="width: 18rem;">
-												<div class="card-img" th:if="${movie.file}">
-													<img src="" th:src="@{'/files/' + ${movie.file.id}}" alt="film_image"/>
-												</div>
-												<div class="card-img" th:unless="${movie.file}">
-													<img src="https://picsum.photos/200/300" alt="film_image"/>
-												</div>
-												<div class="card-body">
-													<h5 class="card-title" th:text="${movie.title}">Up!</h5>
-													<p class="card-text" th:text="' (' + ${movie.year} + ' )'">(2000)</p>
-												</div>
-											</div>
-										</a>
-									</div>
-								</div>
+								<div th:replace="~{fragments/sections.html :: movies}"></div>
 							</div>
 						</div>
 					</div>

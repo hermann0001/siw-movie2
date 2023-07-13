@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -17,7 +19,9 @@ import java.util.*;
 public class UserService {
 
     @Autowired
-    protected UserRepository userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private ImageService imageService;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -39,6 +43,11 @@ public class UserService {
      */
     @Transactional
     public User saveUser(User user) {
+        return this.userRepository.save(user);
+    }
+    @Transactional
+    public User saveUser(User user, MultipartFile file) throws IOException {
+        if(!file.isEmpty()) user.setPicture(this.imageService.save(file));
         return this.userRepository.save(user);
     }
 
@@ -63,5 +72,12 @@ public class UserService {
     @Transactional
     public boolean exists(User user) {
         return this.userRepository.existsByEmail(user.getEmail());
+    }
+
+    @Transactional
+    public void deletePicture(User loggedUser) {
+        this.imageService.delete(loggedUser.getPicture());
+        loggedUser.setPicture(null);
+        this.saveUser(loggedUser);
     }
 }

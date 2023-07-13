@@ -6,8 +6,7 @@ import it.uniroma3.siw.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
+import java.util.Set;
 
 @Service
 public class ArtistService{
@@ -51,5 +50,11 @@ public class ArtistService{
             m.getActors().remove(artist);
 
         this.artistRepository.delete(artist);
+    }
+
+    @Transactional
+    public Set<Long> getAllArtistImages() {
+        return this.artistRepository.findAllArtistImage();
+
     }
 }

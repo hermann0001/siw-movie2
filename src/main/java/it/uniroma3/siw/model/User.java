@@ -23,6 +23,9 @@ public class User {
 	@NotBlank
 	private String email;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private Image picture;
+
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	private List<Review> reviews;
 
@@ -56,6 +59,16 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public Image getPicture() {
+		return picture;
+	}
+
+	public void setPicture(Image picture) { this.picture = picture; }
+
+	public List<Review> getReviews() { return reviews; }
+
+	public void setReviews(List<Review> reviews) { this.reviews = reviews; }
 
 	@Override
 	public boolean equals(Object o) {

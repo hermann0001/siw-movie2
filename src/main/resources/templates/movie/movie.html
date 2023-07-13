@@ -98,7 +98,7 @@
 						<div class="row justify-content-center" th:if="${userDetails != null && reviewAuthorSet != null &&!reviewAuthorSet.contains(userDetails)}">
 							<div class="col-8">
 								<div class="form review p-4">
-									<form th:action="@{'/movie/addNewReviewToMovie/' + ${movie.id}}" th:object="${review}" method="POST">
+									<form th:action="@{'/movie/addNewReviewToMovie/' + ${movie.id}}" th:object="${newReview}" method="POST">
 										<h1>Scrivi una recensione!</h1>
 										<div class="col-4 form-group">
 											<label for="reviewTitle" class="form-label">Titolo</label>

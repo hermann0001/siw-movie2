@@ -17,12 +17,23 @@
 	<!-- TODO: oauth -->
 	<div class="container px-3">
 		<div class="form">
-			<div class="row gx-4 align-items-center">
-				<div class="col-md-6">
-					<a href="/"><img src="/images/logo-siw.png" alt=""/></a>
-				</div>
-				<div class="p4 col-md-6 border-left">
-					<form th:action="@{/register}" method="POST">
+			<form th:action="@{/register}" method="POST" enctype="multipart/form-data">
+				<div class="row gx-4 align-items-center">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-12">
+								<a href="/"><img src="/images/logo-siw.png" alt=""/></a>
+							</div>
+							<div class="col-12">
+								<div class="form-group my-4">
+									<label for="formImmagine">Immagine Profilo</label>
+									<input type="file" class="form-control" name="file" id="formImmagine" accept=""/>
+									<p class="mt-1 form-text valid" th:if="${fileUploadError}" th:text="${fileUploadError}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="p4 col-md-6 border-left">
 						<h1>Registrati</h1>
 						<div th:object="${userData}">
 							<div class="row">
@@ -65,15 +76,18 @@
 						<div>
 							<span class="form-text">Hai già un account? <a href="/login">Accedi</a></span>
 						</div>
-					</form>
+					</div>
 				</div>
-			</div>
+			</form>
 		</div>
+
 	</div>
+
 
 	<footer th:replace="~{fragments/sections.html :: footer}"></footer>
 	<!-- Bootstrap js -->
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

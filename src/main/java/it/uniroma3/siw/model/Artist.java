@@ -7,18 +7,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Artist {
@@ -36,7 +30,8 @@ public class Artist {
 	@PastOrPresent
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfDeath;
-	private String picture;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Image picture;
 	
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
@@ -89,12 +84,12 @@ public class Artist {
 		this.dateOfDeath = dateOfDeath;
 	}
 
-	public String getPicture() {
+	public Image getPicture() {
 		return picture;
 	}
 	
-	public void setPicture(String urlOfPicture) {
-		this.picture = urlOfPicture;
+	public void setPicture(Image picture) {
+		this.picture = picture;
 	}
 	
 	public Set<Movie> getStarredMovies() {
@@ -129,5 +124,4 @@ public class Artist {
 		Artist other = (Artist) obj;
 		return Objects.equals(name, other.name) && Objects.equals(surname, other.surname);
 	}
-
 }

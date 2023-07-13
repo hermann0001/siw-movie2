@@ -94,29 +94,24 @@ public class MovieController {
 		return "redirect:/admin/formUpdateMovie/" + id;
 	}
 
-	@GetMapping("/movie/{id}")
+	@GetMapping(value="/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieService.findMovie(id));
 		model.addAttribute("averageRating", this.reviewService.getAverageRatingByMovie(id));
-		model.addAttribute("review", new Review());
+		if(this.sessionData.getLoggedUser() != null) model.addAttribute("newReview", new Review());
 		model.addAttribute("reviewAuthorSet",  this.userService.getAllMovieReviewsAuthors(id));
 		return "/movie/movie";
 	}
-	@GetMapping("/movie")
+	@GetMapping(value="/movie")
 	public String getMovies(Model model) {
 		model.addAttribute("movies", this.movieService.getAllMovies());
 		return "movie/movies";
 	}
 
-	@GetMapping("/formSearchMovies")
-	public String formSearchMovies() {
-		return "/movie/formSearchMovies";
-	}
-
-	@PostMapping("/searchMovies")
-	public String searchMovies(Model model, @RequestParam int year) {
-		model.addAttribute("movies", this.movieService.findMovies(year));
-		return "movie/foundMovies";
+	@PostMapping(value = "/find")
+	public String cercaFilm(Model model, @RequestParam String searchKeyword){
+		model.addAttribute("movies", this.movieService.searchMovie(searchKeyword));
+		return "/movie/foundMovies";
 	}
 
 	@GetMapping(value = "/admin/addActorToMovie/{actorId}/{movieId}")

@@ -39,7 +39,7 @@
                     <a th:text="${artist.name} + ' ' + ${artist.surname}">Sergio Leone</a>		<!-- TODO: usare i fragments per rimpiazzare codice html -->
                   </div>
                   <div class="mt-1 editable-text">
-                    <a th:text="'(' + ${artist.dateOfBirth} + ')'">03/01/1929</a> 	<!-- TODO: usare i fragments per rimpiazzare codice html -->
+                    <a th:text="${artist.dateOfBirth.getDayOfMonth()} + '-' + ${artist.dateOfBirth.getMonthValue()} + '-' + ${artist.dateOfBirth.getYear()}"></a>
                   </div>
                 </div>
               </div>
@@ -91,7 +91,6 @@
           </div>
         </div>
         <div class="page-content" th:unless="${artist}">
-          <!-- TODO: da rivedere... (non mi piace impaginazione) -->
           <div class="row">
             <div class="col-lg-12">
               <div class="row gy-5">
@@ -108,9 +107,8 @@
       </div>
     </div>
   </div>
-
   <footer th:replace="~{fragments/sections.html :: footer}"></footer>
   <!-- Bootstrap js -->
-  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

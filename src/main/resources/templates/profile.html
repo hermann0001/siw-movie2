@@ -29,12 +29,20 @@
           <div class="col-md-12">
             <div class="row align-items-center d-flex justify-content-center profile">
               <div class="col-lg-5 ratio-1x1">
-                <img src="https://picsum.photos/200/200" class="rounded-5" alt="pro-pic"> <!-- TODO: sostituire con foto utente -->
+                <div th:if="${userDetails.picture}">
+                  <img src="" th:src="@{'/files/' + ${userDetails.picture.id}}" alt="pro_pic"/>
+                </div>
+                <div th:unless="${userDetails.picture}">
+                  <img src="https://picsum.photos/200/300" alt="pro_pic"/>
+                </div>
               </div>
               <div class="col-lg-5">
                 <h5 class="text-uppercase fs-2 text-start" th:text="${userDetails.name} + ' ' + ${userDetails.surname}"></h5> <br>
                 <h6 class="text-start" th:text="'Email: ' + ${userDetails.email}"></h6>
                 <h6 class="text-start" th:text="'Username: ' + ${credentials.username}"></h6>
+                <div class="main-button py-3 text-center d-flex justify-content-lg-start">
+                  <a th:href="@{/user/formUpdateProfile}">Modifica Profilo <i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
               </div>
             </div>
           </div>

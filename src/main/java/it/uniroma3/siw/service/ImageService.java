@@ -24,11 +24,16 @@ public class ImageService {
         return this.imageRepository.save(image);
     }
 
+    @Transactional
     public Image getImage(Long id){
         return this.imageRepository.findById(id).get();
     }
-
+    @Transactional
     public Iterable<Image> getAllImages(){
         return this.imageRepository.findAll();
+    }
+    @Transactional
+    public void delete(Image picture) {
+        this.imageRepository.delete(picture);
     }
 }

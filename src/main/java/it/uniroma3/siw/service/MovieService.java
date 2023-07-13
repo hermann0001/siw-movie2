@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class MovieService {
@@ -29,32 +31,25 @@ public class MovieService {
     public Movie saveMovie(Movie movie){
         return this.movieRepository.save(movie);
     }
-
     public Movie findMovie(Long id) {
         return this.movieRepository.findById(id).orElse(null);
     }
-
     public Iterable<Movie> findMovies(int year){
         return this.movieRepository.findByYear(year);
     }
-
     public Iterable<Movie> getAllMovies() {
         return this.movieRepository.findAll();
     }
-
     @Transactional
     public boolean exists(Movie movie){
         return movie.getTitle() != null && this.movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear());
     }
-
     public Iterable<Movie> findMoviesNotDirectedByArtist(Long id) {
         return this.movieRepository.findMoviesNotDirectedByArtist(id);
     }
-
     public Iterable<Movie> findMoviesNotStarredByArtist(Long id) {
         return this.movieRepository.findMoviesNotStarredByArtist(id);
     }
-
     @Transactional
     public void removeActorFromMovie(Long movieId, Long actorId) {
         Movie movie = this.findMovie(movieId);
@@ -114,6 +109,14 @@ public class MovieService {
     @Transactional
     public void addMovieImage(Movie movie, MultipartFile image) throws IOException {
         movie.setFile(this.imageService.save(image));
-        this.saveMovie(movie);
+    }
+    @Transactional
+    public Set<Long> getAllMovieImages() {
+        return this.movieRepository.findAllMovieImage();
+    }
+
+    @Transactional
+    public List<Movie> searchMovie(String movie) {
+        return this.movieRepository.findByTitleContainingIgnoreCase(movie);
     }
 }

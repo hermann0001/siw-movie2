@@ -1,6 +1,7 @@
 package it.uniroma3.siw.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -21,4 +22,8 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
 	@Query(value="SELECT * FROM movie WHERE movie.id NOT IN (SELECT starred_movies_id FROM movie_actors WHERE actors_id = :artistId)", nativeQuery = true)
 	Iterable<Movie> findMoviesNotStarredByArtist(@Param("artistId") Long id);
+	@Query(value="SELECT file_id FROM movie WHERE file_id IS NOT NULL", nativeQuery = true)
+	Set<Long> findAllMovieImage();
+
+	List<Movie> findByTitleContainingIgnoreCase(String movie);
 }
